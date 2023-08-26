@@ -12,7 +12,7 @@ import Facts from "./Components/facts";
 import Skills from "./Components/skills";
 import Resume from "./Components/resume";
 import Porfolio from "./Components/portfolio";
-import script from "./assets/js/scripted.js"
+import type from "./assets/js/type.js"
 
 
 function App(){
