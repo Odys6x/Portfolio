@@ -6,8 +6,6 @@
 * License: https://bootstrapmade.com/license/
 */
 
-import aos from "../vendor/aos/aos.js";
-
 (function() {
   "use strict";
 

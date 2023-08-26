@@ -24,6 +24,32 @@ a:hover {
   text-decoration: none;
 }
 
+#me {
+  color:#fff
+}
+
+h2 span {
+  color: #1efc26;
+  position: relative;
+}
+h2 span::before {
+  content: "";
+  height: 30px;
+  width: 2px;
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  background: #1efc26;
+  transform: translateY(-45%);
+  animation: blink 0.7s infinite;
+}
+h2 span.stop-blinking::before {
+  animation: none;
+}
+@keyframes blink {
+  50% { opacity: 0 }
+}
+
 h1,
 h2,
 h3,
