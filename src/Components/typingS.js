@@ -1,6 +1,6 @@
 
 
-function  Typing   () {
+function  Typing() {
 const dynamicText = document.querySelector("h2 span");
 const words = ["a Programmer", "an AI Specialist", "a Gamer"];
 // Variables to track the position and deletion status of the word
@@ -31,7 +31,7 @@ const typeEffect = () => {
 
     return(
         <>
-        
+        {typeEffect(200)}
         <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container" data-aos="fade-in">
         <h1>Wong Chun Owen</h1>
