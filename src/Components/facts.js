@@ -23,7 +23,7 @@ function Facts (){
             <div class="count-box">
               <i class="bi bi-journal-richtext"></i>
               <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong></p>
+              <p><strong>On time</strong></p>
             </div>
           </div>
 
