@@ -25,30 +25,87 @@ a:hover {
 }
 
 #me {
-  color:#fff
+
+  color: #fff;
+
 }
 
-h2 span {
-  color: #1efc26;
+
+
+.text_1 {
+  animation: text1;
+}
+
+.text_2 {
+  animation: text2;
+}
+
+.text_3 {
+  animation: text3;
+}
+
+
+.text_1, .text_2, .text_3{
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
   position: relative;
+  animation-duration: 20s;
+  animation-timing-function: steps(25, end);
+  animation-iteration-count: infinite;
 }
-h2 span::before {
-  content: "";
-  height: 30px;
-  width: 2px;
+
+.text_1::after, .text_2::after, .text_3::after{
+  content: "|";
   position: absolute;
-  top: 50%;
-  right: -8px;
-  background: #1efc26;
-  transform: translateY(-45%);
-  animation: blink 0.7s infinite;
+  right: 0;
+  animation: caret infinite;
+  animation-duration: 1s;
+  animation-timing-function: steps(1, end);
 }
-h2 span.stop-blinking::before {
-  animation: none;
+
+
+@keyframes text3 {
+  0%,33%,67%, 100% {
+    width: 0;
+  }
+  
+  77%, 90% {
+    width: 5.75em;
+  }
 }
-@keyframes blink {
-  50% { opacity: 0 }
+
+@keyframes text2 {
+  0%,33%,67%, 100%  {
+    width: 0;
+  }
+  
+  43%, 57%{
+    width: 8.65em;
+  }
 }
+
+@keyframes text1 {
+  0%,33%,67%, 100% {
+    width: 0;
+  }
+  10%, 23% {
+    width: 8.2em;
+  }
+}
+
+@keyframes caret {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+
+
+
 
 h1,
 h2,
