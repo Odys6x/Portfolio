@@ -5,10 +5,10 @@ function Footer (){
     <footer id="footer">
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>iPortfolio</span></strong>
+        <strong><span>ReactJS</span></strong>
       </div>
       <div class="credits">
-         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+         Created by Wong Chun Owen 
       </div>
     </div>
   </footer>
