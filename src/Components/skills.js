@@ -1,69 +1,127 @@
 function Skills (){
     return(<>
-    <section id="skills" class="skills section-bg">
-      <div class="container">
 
-        <div class="section-title">
+<div class="container">
+
+<div class="section-title">
           <h2>Skills</h2>
           <p>Comprehensive skill set encompassing web development, programming proficiency in various languages, and a deep understanding of AI and machine learning techniques.</p>
         </div>
 
-        <div class="row skills-content">
+<div class="row skills-content">
 
-          <div class="col-lg-6" data-aos="fade-up">
+  <div class="col-lg-5" data-aos="fade-up">
 
-            <div class="progress">
-              <span class="skill">HTML <i class="val">100%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+    <div class="skill-box">
+            <span class="title">HTML</span>
+            <div class="skill-bar">
+                <span class="skill-100">
+                    <span class="tooltipp">100%</span>
+                </span>
             </div>
-
-            <div class="progress">
-              <span class="skill">CSS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+        
+          <div class="skill-box">
+            <span class="title">CSS</span>
+            <div class="skill-bar">
+                <span class="skill-100">
+                    <span class="tooltipp">100%</span>
+                </span>
             </div>
-
-            <div class="progress">
-              <span class="skill">JavaScript <i class="val">75%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+          </div>
+          <div class="skill-box">
+            <span class="title">C#</span>
+            <div class="skill-bar">
+                <span class="skill-100">
+                    <span class="tooltipp">100%</span>
+                </span>
             </div>
-
           </div>
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="progress">
-              <span class="skill">PHP <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+          <div class="skill-box">
+            <span class="title">NodeJS</span>
+            <div class="skill-bar">
+                <span class="skill-30">
+                    <span class="tooltipp">30%</span>
+                </span>
             </div>
-
-            <div class="progress">
-              <span class="skill">WordPress/CMS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Photoshop <i class="val">55%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
           </div>
+
+          <div class="skill-box">
+            <span class="title">Kotlin</span>
+            <div class="skill-bar">
+                <span class="skill-20">
+                    <span class="tooltipp">20%</span>
+                </span>
+            </div>
+          </div>
+
 
         </div>
 
+        
+
+</div>
+
+<div class="col-lg-1"></div>
+
+  <div class="col-lg-5" data-aos="fade-up">
+
+<div class="skill-box">
+        <span class="title">JavaScript</span>
+        <div class="skill-bar">
+            <span class="skill-100">
+                <span class="tooltipp">100%</span>
+            </span>
+        </div>
+    
+      <div class="skill-box">
+        <span class="title">Python</span>
+        <div class="skill-bar">
+            <span class="skill-100">
+                <span class="tooltipp">100%</span>
+            </span>
+        </div>
       </div>
-    </section>
+      <div class="skill-box">
+        <span class="title">Cybersecurity</span>
+        <div class="skill-bar">
+            <span class="skill-100">
+                <span class="tooltipp">100%</span>
+            </span>
+        </div>
+      </div>
+
+      <div class="skill-box">
+        <span class="title">ReactJS</span>
+        <div class="skill-bar">
+            <span class="skill-20">
+                <span class="tooltipp">20%</span>
+            </span>
+        </div>
+      </div>
+
+      <div class="skill-box">
+        <span class="title">ML</span>
+        <div class="skill-bar">
+            <span class="skill-20">
+                <span class="tooltipp">20%</span>
+            </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    </div>
+ 
+
+ 
+        
+
+  
+</div>
+
+</div>
     </>)
 }
 

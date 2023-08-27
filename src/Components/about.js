@@ -1,4 +1,4 @@
-import profilepic from "../Myself/Me.png";
+import profilepic from "../Myself/me2.jpg";
 
 function About(){
     return(<>
@@ -39,7 +39,7 @@ function About(){
             </div>
             <p>
 
-Apart from my technical pursuits, I'm an enthusiastic gamer, finding both enjoyment and inspiration in the virtual realms. Music is another realm where I love – adeptly playing musical instruments and weaving melodies that resonate with my soul. My creative drive is also channeled into programming, where I merge artistic vision with technical finesse. 
+Apart from my technical pursuits, I'm an enthusiastic gamer, finding both enjoyment and inspiration in the virtual realms. Music is another realm where I love – adeptly playing musical instruments allowing my creative drive to be channeled into programming, where I merge artistic vision with technical finesse. 
 </p>
 
 <p>
