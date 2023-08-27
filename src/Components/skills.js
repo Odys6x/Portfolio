@@ -5,7 +5,7 @@ function Skills (){
 
         <div class="section-title">
           <h2>Skills</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>Comprehensive skill set encompassing web development, programming proficiency in various languages, and a deep understanding of AI and machine learning techniques.</p>
         </div>
 
         <div class="row skills-content">

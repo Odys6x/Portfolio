@@ -6,7 +6,7 @@ function Porfolio(){
 
         <div class="section-title">
           <h2>Portfolio</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>Welcome to my portfolio, a curated collection showcasing my journey as a tech enthusiast, web developer, and AI explorer. Explore my projects and experiences that reflect my passion for innovation and creativity.</p>
         </div>
 
         <div class="row" data-aos="fade-up">

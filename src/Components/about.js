@@ -17,8 +17,7 @@ function About(){
           <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
             <h3>Programmer & AI Specialist</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+            Proficient Programmer and AI Specialist skilled in developing innovative solutions, leveraging a diverse programming skillset and expertise in AI technologies to drive data-driven insights and solve complex challenges.
             </p>
             <div class="row">
               <div class="col-lg-6">
