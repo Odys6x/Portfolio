@@ -7,7 +7,7 @@ function About(){
         
         <div class="section-title">
           <h2>About</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p> I'm Wong Chun Owen, a student at SiT. I've spent the past 8 months as an information technology assistant, where I've honed my skills in web development and programming. I've also dived into the world of AI and machine learning. With my diploma already in hand and my pursuit of a bachelor's degree underway.</p>
         </div>
 
         <div class="row">
@@ -39,9 +39,23 @@ function About(){
               </div>
             </div>
             <p>
-              Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis.
-              Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus itaque neque. Aliquid amet quidem ut quaerat cupiditate. Ab et eum qui repellendus omnis culpa magni laudantium dolores.
-            </p>
+
+Apart from my technical pursuits, I'm an enthusiastic gamer, finding both enjoyment and inspiration in the virtual realms. Music is another realm where I love – adeptly playing musical instruments and weaving melodies that resonate with my soul. My creative drive is also channeled into programming, where I merge artistic vision with technical finesse. 
+</p>
+
+<p>
+
+A central thread in my journey is the belief that each facet of existence holds a unique beauty waiting to be discovered and expressed as a form of art. This philosophy has guided my pursuit of creativity and innovation.
+
+My educational journey signifies my commitment to growth and excellence. I'm currently striving toward a bachelor's degree, aiming to make a meaningful impact in the expansive landscape of technology.
+
+</p>
+
+<p>
+
+Looking forward, my aspirations encompass securing a role in a prominent industry. I envision contributing my skills and insights to a dynamic team within a large-scale company, fostering innovation and collaboration. Beyond my career, I'm driven by a passion for helping others, dedicating my spare time to making a positive difference in their lives.
+
+</p>
           </div>
         </div>
 

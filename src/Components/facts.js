@@ -6,8 +6,7 @@ function Facts (){
 
         <div class="section-title">
           <h2>Personal Traits</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
+          <p>I embody an upbeat approach that brings positivity to every situation, inspiring those around me. Reliability is key, as I honor commitments and value others' time. Thriving in dynamic settings, I embrace change with enthusiasm and creativity. A dedicated team player, I prioritize collaboration, contribute actively, and foster an environment where collective achievement is paramount.</p>  </div>
 
         <div class="row no-gutters">
 
