@@ -27,6 +27,11 @@ const typeEffect = () => {
         wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
         setTimeout(typeEffect, 1200);
     }
+
+    return(
+    
+    <h2 id="me">I'm <span></span></h2>
+    )
 }
 
     return(
@@ -35,7 +40,7 @@ const typeEffect = () => {
         <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container" data-aos="fade-in">
         <h1>Wong Chun Owen</h1>
-        <h2 id="me">I'm <span></span></h2>
+        {typeEffect()}
         </div>
         </section>
         </>
