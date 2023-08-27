@@ -4,8 +4,8 @@ Copyright © 2011-2016 Caleb Troughton
 Licensed under the MIT license.
 https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 */
-(function() {
-  'use strict'
+(function way() {
+  
 
   var keyCounter = 0
   var allWaypoints = {}
@@ -169,7 +169,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   window.Waypoint = Waypoint
 }())
 ;(function() {
-  'use strict'
+  
 
   function requestAnimationFrameShim(callback) {
     window.setTimeout(callback, 1000 / 60)
@@ -220,7 +220,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   Context.prototype.checkEmpty = function() {
     var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
     var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
-    var isWindow = this.element == this.element.window
+    var isWindow = this.element === this.element.window
     if (horizontalEmpty && verticalEmpty && !isWindow) {
       this.adapter.off('.waypoints')
       delete contexts[this.key]
@@ -478,7 +478,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   Waypoint.Context = Context
 }())
 ;(function() {
-  'use strict'
+ 
 
   function byTriggerPoint(a, b) {
     return a.triggerPoint - b.triggerPoint
@@ -583,7 +583,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   Waypoint.Group = Group
 }())
 ;(function() {
-  'use strict'
+ 
 
   var Waypoint = window.Waypoint
 

@@ -15,27 +15,22 @@ import Porfolio from "./Components/portfolio";
 import Typing from "./Components/typingS";
 
 
-
 function App(){
     return( 
         <> 
-        <NavBar/>
-        <Typing/>
+    <NavBar/>
+    <Typing/>
 
     <main id="main">
-    <About/> 
-    <Facts/>
-    <Skills/>
-    <Resume/>
-    <Porfolio/>
+        <About/> 
+        <Facts/>
+        <Skills/>
+        <Resume/>
+        <Porfolio/>
+    </main>
+    <Footer/>
 
-
-  </main>
-  <Footer/>
-
-      </>
-      
-       
+      </>   
     );
 }
 
