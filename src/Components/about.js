@@ -24,7 +24,7 @@ function About(){
               <div class="col-lg-6">
                 <ul>
                   <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>11 March 2001</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Github:</strong> <span>www.example.com</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Webiste:</strong> <span>https://odys6x.github.io/Portfolio/</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+65 97250077</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Singapore, Woodlands</span></li>
                 </ul>
