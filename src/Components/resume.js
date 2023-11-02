@@ -63,7 +63,7 @@ function Resume (){
             <div class="resume-item">
               <h4>Information Technology Assistant</h4>
               <h5>December 2017 - April 2018</h5>
-              <p><em>Stepping Stone Advertising, New York, NY</em></p>
+              <p><em>Setsco Service Pte LTD</em></p>
               <ul>
                 <li>Solve client issues, by installing programs, troubleshooting, fixing computers</li>
               </ul>

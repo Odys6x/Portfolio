@@ -40,8 +40,8 @@ function Skills (){
           <div class="skill-box">
             <span class="title">NodeJS</span>
             <div class="skill-bar">
-                <span class="skill-30">
-                    <span class="tooltipp">30%</span>
+                <span class="skill-100">
+                    <span class="tooltipp">100%</span>
                 </span>
             </div>
           </div>
@@ -49,8 +49,8 @@ function Skills (){
           <div class="skill-box">
             <span class="title">Kotlin</span>
             <div class="skill-bar">
-                <span class="skill-20">
-                    <span class="tooltipp">20%</span>
+                <span class="skill-100">
+                    <span class="tooltipp">100%</span>
                 </span>
             </div>
           </div>
