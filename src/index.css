@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #faf7f2;
+  color: #3d3530;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+@keyframes scrollBg {
+  from { background-position-x: 0; }
+  to { background-position-x: -1000px; }
+}
+
+
+@keyframes stationScroll {
+  from { transform: translateX(0px); }
+  to { transform: translateX(-1400px); }
+}
+
+.stations-scroll {
+  animation: stationScroll 10s linear infinite;
+}
+
+#sakura canvas {
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
