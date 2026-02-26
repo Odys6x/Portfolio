@@ -368,7 +368,7 @@ export default function About() {
                   {[
                     { emoji:'🎮', text:'League of Legends, Monster Hunter, Pokemon', color:'#8855cc', bg:'#f5f0ff', border:'#c8a8ff', shadow:'#9966dd' },
                     { emoji:'🏃', text:'Trekking, Cycling', color:'#1a7a40', bg:'#f0fff0', border:'#a0e0b0', shadow:'#4a9a60' },
-                    { emoji:'🍳', text:'Currently Learning Bass Guitar', color:'#cc4400', bg:'#fff5f0', border:'#ffb890', shadow:'#dd6622' },
+                    { emoji:'🎸', text:'Currently Learning Bass Guitar', color:'#cc4400', bg:'#fff5f0', border:'#ffb890', shadow:'#dd6622' },
                     { emoji:'🐠', text:'Animal Lover', color:'#0055aa', bg:'#f0f8ff', border:'#90c8ff', shadow:'#2266cc' },
                   ].map(({ emoji, text, color, bg, border, shadow }, i) => (
                     <motion.div key={i} custom={i+7} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
