@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const CERTS = [
   {
     id: 1,
-    img: '/src/assets/Hackrift.jpg',
+    img: '/public/assets/Hackrift.jpg',
     emoji: '🏆',
     title: 'HackRift 2025',
     subtitle: '1st Runner-Up',
@@ -22,7 +22,7 @@ const CERTS = [
   },
   {
     id: 2,
-    img: '/src/assets/SG50.jpg',
+    img: '/public/assets/SG50.jpg',
     emoji: '🎨',
     title: 'SG50 Art Curriculum',
     subtitle: 'Online Showcase',

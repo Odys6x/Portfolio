@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const PROJECTS = [
   {
     id: 1,
-    img: '/src/assets/MOE.jpg',
+    img: '/public/assets/MOE.jpg',
     emoji: '🏆',
     badge: '2nd Place · Hackrift',
     badgeBg: '#ffd93d', badgeColor: '#7a5000',
@@ -48,7 +48,7 @@ const PROJECTS = [
   },
   {
     id: 3,
-    img: '/src/assets/AWS.jpg',
+    img: '/public/assets/AWS.jpg',
     emoji: '☁️',
     badge: 'Cloud AI · AWS',
     badgeBg: '#ffb3cc', badgeColor: '#880033',
@@ -69,7 +69,7 @@ const PROJECTS = [
   },
   {
     id: 4,
-    img: '/src/assets/MSF.jpg',
+    img: '/public/assets/MSF.jpg',
     emoji: '🌏',
     badge: 'MSF · Empathetic AI',
     badgeBg: '#b5a8ff', badgeColor: '#330099',
