@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-const PHOTO = '/public/assets/Owen.jpg'
+const PHOTO = '/assets/Owen.jpg'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
