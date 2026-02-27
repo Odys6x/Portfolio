@@ -190,8 +190,7 @@ function Hero() {
   const TRANS = 'background 90s linear, opacity 90s linear'
 
   return (
-    <section ref={ref} id="hero" className="min-h-screen flex flex-col justify-center items-center text-center px-6 pl-24 relative overflow-hidden">
-
+    <section ref={ref} id="hero" className="min-h-screen flex flex-col justify-center items-center text-center px-6 pl-24 relative overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
       {/* ── Sky gradient ── */}
       <div
         className="absolute inset-0 pointer-events-none"

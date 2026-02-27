@@ -6,6 +6,7 @@ import Contact from './components/Contact'
 import Certifications from './components/Certification'
 import MusicPlayer from './components/MusicPlayer'
 import Experience from './components/Experience'
+import FurinBackground from './components/furinbackground'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <MusicPlayer />
       <Hero />
+      <FurinBackground/>
       <About />
       <Experience /> 
       <Projects />

@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const PHOTO = '/assets/Owen.jpg'
 
@@ -10,54 +11,17 @@ const fadeUp = {
   })
 }
 
-function StarDoodle({ color, size = 24, style }) {
-  return (
-    <svg viewBox="0 0 40 40" style={{ width: size, height: size, flexShrink: 0, ...style }}>
-      <path d="M20,3 L23,15 L35,15 L26,23 L29,36 L20,28 L11,36 L14,23 L5,15 L17,15 Z"
-        fill={color} stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
+const STARTERS = [
+  "What's Owen working on? 🛡️",
+  "Tell me about PathFinders 🏆",
+  "What does Owen do for fun? 🎮",
+  "What tech does Owen know? 💻",
+  "Where has Owen worked? 💼",
+]
 
-function HeartDoodle({ color, size = 20, style }) {
-  return (
-    <svg viewBox="0 0 30 28" style={{ width: size, flexShrink: 0, ...style }}>
-      <path d="M15,24 C15,24 3,16 3,9 C3,5 6,2 10,2 C12,2 14,4 15,5 C16,4 18,2 20,2 C24,2 27,5 27,9 C27,16 15,24 15,24 Z"
-        fill={color} stroke="white" strokeWidth="1.5"/>
-    </svg>
-  )
-}
-
-function FlowerDoodle({ color, style }) {
-  return (
-    <svg viewBox="0 0 40 40" style={{ width: 32, flexShrink: 0, ...style }}>
-      <circle cx="20" cy="20" r="6" fill="#FFD700"/>
-      {[0,60,120,180,240,300].map(a => (
-        <ellipse key={a}
-          cx={20 + 11*Math.cos(a*Math.PI/180)}
-          cy={20 + 11*Math.sin(a*Math.PI/180)}
-          rx="5" ry="7"
-          transform={`rotate(${a} ${20 + 11*Math.cos(a*Math.PI/180)} ${20 + 11*Math.sin(a*Math.PI/180)})`}
-          fill={color} stroke="white" strokeWidth="1"/>
-      ))}
-    </svg>
-  )
-}
-
-function CloudDoodle({ color, style }) {
-  return (
-    <svg viewBox="0 0 60 35" style={{ width: 60, flexShrink: 0, ...style }}>
-      <path d="M10,28 C2,28 2,16 10,16 C10,8 18,4 26,8 C30,2 42,2 44,10 C52,10 56,18 50,24 C50,28 42,32 36,28 Z"
-        fill={color} stroke="white" strokeWidth="2"/>
-    </svg>
-  )
-}
-
-// Ruled lines background for a notebook page
 function RuledPage({ children, marginColor = '#ffb3cc' }) {
   return (
     <div style={{ position: 'relative', background: '#fffdf6', borderRadius: 6, overflow: 'hidden', height: '100%' }}>
-      {/* Horizontal ruled lines */}
       {Array.from({ length: 28 }).map((_, i) => (
         <div key={i} style={{
           position: 'absolute', left: 0, right: 0,
@@ -66,15 +30,337 @@ function RuledPage({ children, marginColor = '#ffb3cc' }) {
           pointerEvents: 'none',
         }}/>
       ))}
-      {/* Margin line */}
       <div style={{
         position: 'absolute', top: 0, bottom: 0, left: 28,
-        width: 2, background: marginColor, opacity: 0.7,
+        width: 2, background: marginColor, opacity: 0.5,
         pointerEvents: 'none',
       }}/>
       <div style={{ position: 'relative', zIndex: 1, height: '100%' }}>
         {children}
       </div>
+    </div>
+  )
+}
+
+// ── Typing indicator dots ──
+function TypingDots() {
+  return (
+    <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: '2px 0' }}>
+      {[0, 0.2, 0.4].map((delay, i) => (
+        <motion.div
+          key={i}
+          animate={{ y: [0, -5, 0] }}
+          transition={{ repeat: Infinity, duration: 0.7, delay, ease: 'easeInOut' }}
+          style={{
+            width: 7, height: 7, borderRadius: '50%',
+            background: '#cc2266',
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// ── Chat bubble ──
+function ChatBubble({ msg }) {
+  const isUser = msg.role === 'user'
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        display: 'flex',
+        justifyContent: isUser ? 'flex-end' : 'flex-start',
+        marginBottom: 10,
+      }}
+    >
+      {!isUser && (
+        <div style={{
+          width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+          background: 'linear-gradient(135deg, #ff9eb5, #ff6b9d)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 18, marginRight: 7, marginTop: 2,
+          boxShadow: '0 2px 6px rgba(200,50,80,0.3)',
+        }}>🤖</div>
+      )}
+      <div style={{
+        maxWidth: '78%',
+        background: isUser
+          ? 'linear-gradient(135deg, #ff9eb5, #ff6b9d)'
+          : 'rgba(255,255,255,0.92)',
+        color: isUser ? 'white' : '#333',
+        border: isUser ? 'none' : '1.5px solid #ffb3cc',
+        borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+        padding: '8px 13px',
+        fontFamily: "'Caveat', cursive", fontWeight: 600,
+        fontSize: 19,
+        lineHeight: 1.55,
+        boxShadow: isUser
+          ? '2px 3px 0 rgba(200,50,80,0.25)'
+          : '2px 3px 0 rgba(255,179,204,0.4)',
+      }}>
+        {msg.content}
+      </div>
+      {isUser && (
+        <div style={{
+          width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+          background: 'linear-gradient(135deg, #ffd93d, #f0a800)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 18, marginLeft: 7, marginTop: 2,
+          boxShadow: '0 2px 6px rgba(200,150,0,0.3)',
+        }}>😊</div>
+      )}
+    </motion.div>
+  )
+}
+
+// ── Chat panel inside the right binder ──
+function ChatPanel() {
+  const [messages, setMessages] = useState([
+    {
+      role: 'assistant',
+      content: "Hey there! 👋 I'm Owen Bot — ask me anything about Owen! Whether it's his projects, skills, or what he does for fun lah~",
+    },
+  ])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [showStarters, setShowStarters] = useState(true)
+  const scrollContainerRef = useRef(null)
+  const prevMsgCount = useRef(1)
+
+  // On mount: force scroll to top after full layout + paint
+  useEffect(() => {
+    let raf1, raf2
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        const el = scrollContainerRef.current
+        if (el) el.scrollTop = 0
+      })
+    })
+    return () => { cancelAnimationFrame(raf1); cancelAnimationFrame(raf2) }
+  }, [])
+
+  // On new messages: scroll to bottom
+  useEffect(() => {
+    const el = scrollContainerRef.current
+    if (!el) return
+    if (messages.length > prevMsgCount.current || loading) {
+      el.scrollTop = el.scrollHeight
+    }
+    prevMsgCount.current = messages.length
+  }, [messages, loading])
+
+  const sendMessage = async (text) => {
+    const userText = (text || input).trim()
+    if (!userText || loading) return
+
+    setInput('')
+    setShowStarters(false)
+    setMessages(prev => [...prev, { role: 'user', content: userText }])
+    setLoading(true)
+
+    try {
+      const history = messages
+        .filter(m => m.role !== 'system')
+        .concat({ role: 'user', content: userText })
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      })
+      const data = await res.json()
+      setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
+    } catch {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Aiyah, something went wrong leh 😅 Try again!' }])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleKey = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
+    }
+  }
+
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column',
+      height: '100%', padding: '10px 10px 10px 36px',
+      boxSizing: 'border-box',
+    }}>
+
+      {/* Header */}
+      <div style={{ marginBottom: 8, flexShrink: 0 }}>
+        <motion.p
+          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+          style={{ fontFamily: "'Caveat', cursive", fontSize: 26, fontWeight: 700, margin: '0 0 2px', lineHeight: 1.1 }}
+        >
+          <span style={{ color: '#ee4444' }}>Ask me about</span>
+          <span style={{ color: '#cc2266' }}> Owen!</span>
+          <span style={{ fontSize: 22 }}> 💬</span>
+        </motion.p>
+        {/* Squiggle */}
+        <svg viewBox="0 0 220 8" style={{ width: '100%', display: 'block', marginBottom: 4 }}>
+          <path d="M0,4 C18,0 36,8 54,4 C72,0 90,8 108,4 C126,0 144,8 162,4 C180,0 198,8 216,4"
+            fill="none" stroke="#ee4444" strokeWidth="2.5" strokeLinecap="round"/>
+        </svg>
+        {/* Powered by badge */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 4,
+            background: '#f0f8ff', border: '1.5px solid #b3d4ff',
+            borderRadius: 20, padding: '1px 8px',
+          }}>
+            <span style={{ fontSize: 14 }}>⚡</span>
+            <span style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15, color: '#1a3a5a' }}>
+              Powered by Groq · llama-3.3-70b
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Messages area */}
+      <div ref={scrollContainerRef} style={{
+        flex: 1, overflowY: 'auto', minHeight: 0,
+        padding: '4px 0',
+        scrollbarWidth: 'thin',
+        scrollbarColor: '#ffb3cc transparent',
+      }}>
+        {messages.map((msg, i) => (
+          <ChatBubble key={i} msg={msg} />
+        ))}
+
+        {/* Typing indicator */}
+        <AnimatePresence>
+          {loading && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}
+            >
+              <div style={{
+                width: 28, height: 28, borderRadius: '50%',
+                background: 'linear-gradient(135deg, #ff9eb5, #ff6b9d)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18,
+              }}>🤖</div>
+              <div style={{
+                background: 'rgba(255,255,255,0.92)', border: '1.5px solid #ffb3cc',
+                borderRadius: '16px 16px 16px 4px', padding: '8px 14px',
+                boxShadow: '2px 3px 0 rgba(255,179,204,0.4)',
+              }}>
+                <TypingDots />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+
+      {/* Starter pills — outside scroll so they don't push content */}
+      <AnimatePresence>
+        {showStarters && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            style={{ flexShrink: 0, padding: '6px 0 2px' }}
+          >
+            <p style={{
+              fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15, color: '#aa4488',
+              opacity: 0.7, marginBottom: 5,
+            }}>✦ Try asking:</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {STARTERS.map((q) => (
+                <motion.button
+                  key={q}
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => sendMessage(q)}
+                  style={{
+                    fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15,
+                    color: '#cc2266', cursor: 'pointer',
+                    background: 'linear-gradient(135deg, #fff0f5, #ffe4f0)',
+                    border: '1.5px solid #ffb3cc', borderRadius: 20,
+                    padding: '3px 9px',
+                    boxShadow: '1px 2px 0 #f090b0',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {q}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Input area */}
+      <div style={{
+        flexShrink: 0, marginTop: 8,
+        display: 'flex', gap: 6, alignItems: 'flex-end',
+      }}>
+        <div style={{
+          flex: 1, position: 'relative',
+          background: 'rgba(255,255,255,0.9)',
+          border: '2px solid #ffb3cc',
+          borderRadius: 14,
+          boxShadow: '2px 2px 0 #f090b0',
+          overflow: 'hidden',
+        }}>
+          <textarea
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={handleKey}
+            placeholder="Ask about Owen..."
+            rows={1}
+            style={{
+              width: '100%', border: 'none', outline: 'none',
+              background: 'transparent', resize: 'none',
+              fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 18, color: '#333',
+              padding: '8px 10px',
+              lineHeight: 1.4,
+            }}
+          />
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.08, y: -2 }}
+          whileTap={{ scale: 0.93 }}
+          onClick={() => sendMessage()}
+          disabled={loading || !input.trim()}
+          style={{
+            width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+            background: loading || !input.trim()
+              ? 'rgba(255,179,204,0.4)'
+              : 'linear-gradient(135deg, #ff9eb5, #ff6b9d)',
+            border: '2px solid #ffb3cc',
+            cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 20,
+            boxShadow: loading || !input.trim() ? 'none' : '2px 3px 0 #aa1144',
+            transition: 'all 0.2s',
+          }}
+        >
+          {loading ? '⏳' : '✉️'}
+        </motion.button>
+      </div>
+
+      {/* Reset hint */}
+      {messages.length > 2 && !showStarters && (
+        <motion.button
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          onClick={() => { setMessages([messages[0]]); setShowStarters(true) }}
+          style={{
+            fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15, color: '#aa4488',
+            opacity: 0.55, background: 'none', border: 'none', cursor: 'pointer',
+            marginTop: 4, textAlign: 'center',
+          }}
+        >
+          ↺ start over
+        </motion.button>
+      )}
     </div>
   )
 }
@@ -85,27 +371,8 @@ export default function About() {
   return (
     <section
       id="about"
-      style={{ background: '#fff9e6', position: 'relative', padding: '80px 16px', overflow: 'hidden' }}
+      style={{ background: 'transparent', position: 'relative', zIndex: 1, padding: '80px 16px', overflow: 'hidden' }}
     >
-      {/* Background scatter doodles */}
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <FlowerDoodle color="#ff9eb5" style={{ position:'absolute', top:30, left:'6%', opacity:0.65 }}/>
-        <StarDoodle color="#ffd93d" size={30} style={{ position:'absolute', top:55, left:'15%', transform:'rotate(20deg)', opacity:0.75 }}/>
-        <CloudDoodle color="#b5e8ff" style={{ position:'absolute', top:18, right:'14%', opacity:0.85 }}/>
-        <HeartDoodle color="#ff9eb5" size={26} style={{ position:'absolute', top:65, right:'28%', transform:'rotate(-15deg)', opacity:0.65 }}/>
-        <StarDoodle color="#a8e6cf" size={20} style={{ position:'absolute', top:85, right:'7%', transform:'rotate(40deg)', opacity:0.75 }}/>
-        <FlowerDoodle color="#b5a8ff" style={{ position:'absolute', top:12, left:'43%', opacity:0.45 }}/>
-        <StarDoodle color="#ff9eb5" size={26} style={{ position:'absolute', bottom:45, left:'5%', transform:'rotate(-20deg)', opacity:0.65 }}/>
-        <FlowerDoodle color="#ffd93d" style={{ position:'absolute', bottom:28, left:'20%', opacity:0.55 }}/>
-        <HeartDoodle color="#ff6b6b" size={30} style={{ position:'absolute', bottom:65, right:'9%', transform:'rotate(10deg)', opacity:0.75 }}/>
-        <CloudDoodle color="#a8e6cf" style={{ position:'absolute', bottom:18, right:'24%', opacity:0.65 }}/>
-        <StarDoodle color="#b5a8ff" size={22} style={{ position:'absolute', bottom:75, left:'36%', transform:'rotate(30deg)', opacity:0.55 }}/>
-        <HeartDoodle color="#ffd93d" size={20} style={{ position:'absolute', top:'42%', left:'2%', transform:'rotate(-10deg)', opacity:0.65 }}/>
-        <FlowerDoodle color="#ff9eb5" style={{ position:'absolute', top:'57%', right:'2%', opacity:0.55 }}/>
-        <StarDoodle color="#6bcbff" size={16} style={{ position:'absolute', top:'32%', right:'5%', transform:'rotate(15deg)', opacity:0.75 }}/>
-        <StarDoodle color="#ffb3cc" size={16} style={{ position:'absolute', top:'68%', left:'4%', transform:'rotate(-30deg)', opacity:0.65 }}/>
-      </div>
-
       {/* Section label */}
       <motion.div
         initial={{ opacity: 0, y: -16 }}
@@ -114,7 +381,7 @@ export default function About() {
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 32 }}
       >
         <div style={{ width: 40, height: 3, borderRadius: 2, background: '#ff9eb5' }}/>
-        <p style={{ fontFamily: "'Caveat', cursive", fontSize: 22, color: '#ff6b9d', letterSpacing: '0.1em', margin: 0 }}>
+        <p style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 26, color: '#ff6b9d', letterSpacing: '0.1em', margin: 0 }}>
           私について ✦ about me
         </p>
         <div style={{ width: 40, height: 3, borderRadius: 2, background: '#ff9eb5' }}/>
@@ -131,7 +398,6 @@ export default function About() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           style={{ flex: 1, maxWidth: 370, position: 'relative', display: 'flex', flexDirection: 'column' }}
         >
-          {/* Cover shell */}
           <div style={{
             flex: 1, display: 'flex', flexDirection: 'column',
             background: 'linear-gradient(145deg, #ff6b6b, #dd3333)',
@@ -151,18 +417,18 @@ export default function About() {
             {/* Cover label */}
             <div style={{
               position: 'relative', zIndex: 1,
-              background: '#fff9e6', borderRadius: 8, padding: '5px 0',
+              background: 'linear-gradient(160deg, #faf7f0 0%, #f2f6f8 100%)', borderRadius: 8, padding: '5px 0',
               border: '2.5px solid #ffd93d', boxShadow: '2px 3px 0 #d4a800',
               textAlign: 'center', marginBottom: 10, flexShrink: 0,
             }}>
-              <span style={{ fontFamily: "'Caveat', cursive", fontSize: 16, color: '#cc3333', fontWeight: 700 }}>
+              <span style={{ fontFamily: "'Caveat', cursive", fontSize: 20, color: '#cc3333', fontWeight: 700 }}>
                 📋 PROFILE ノート
               </span>
             </div>
 
             {/* Inner ruled page */}
             <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
-              <RuledPage marginColor="#ffb3cc">
+              <RuledPage marginColor="#a0c4d8">
                 <div style={{ padding: '14px 10px 14px 36px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', boxSizing: 'border-box' }}>
 
                   {/* Polaroid */}
@@ -180,25 +446,21 @@ export default function About() {
                       position: 'relative',
                     }}
                   >
-                    {/* Washi tape strips — pinned at each photo corner */}
+                    {/* Washi tape strips */}
                     <div style={{ position:'absolute', top:-5, left:-16, width:42, height:14, background:'rgba(255,211,70,0.85)', borderRadius:2, transform:'rotate(-38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
                     <div style={{ position:'absolute', top:-5, right:-10, width:42, height:14, background:'rgba(180,220,255,0.88)', borderRadius:2, transform:'rotate(38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
                     <div style={{ position:'absolute', bottom:2, left:-10, width:38, height:13, background:'rgba(200,255,180,0.88)', borderRadius:2, transform:'rotate(38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
                     <div style={{ position:'absolute', bottom:2, right:-16, width:38, height:13, background:'rgba(255,180,200,0.88)', borderRadius:2, transform:'rotate(-38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
-
                     <img
                       src={PHOTO} alt="Owen"
                       style={{
-                        width: '100%',
-                        height: 220,
-                        objectFit: 'cover',
-                        objectPosition: 'center 15%',
-                        display: 'block',
-                        borderRadius: 2,
+                        width: '100%', height: 220,
+                        objectFit: 'cover', objectPosition: 'center 15%',
+                        display: 'block', borderRadius: 2,
                         filter: 'saturate(0.9) contrast(1.05)',
                       }}
                     />
-                    <p style={{ fontFamily: "'Caveat', cursive", fontSize: 17, color: '#666', textAlign: 'center', marginTop: 5, lineHeight: 1 }}>
+                    <p style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 19, color: '#666', textAlign: 'center', marginTop: 5, lineHeight: 1 }}>
                       Owen ~ 2025 ☕
                     </p>
                   </motion.div>
@@ -215,10 +477,10 @@ export default function About() {
                       textAlign: 'center', flexShrink: 0,
                     }}
                   >
-                    <p style={{ fontFamily: "'Caveat', cursive", fontSize: 26, color: '#cc2266', fontWeight: 700, lineHeight: 1, margin: 0 }}>
+                    <p style={{ fontFamily: "'Caveat', cursive", fontSize: 30, color: '#cc2266', fontWeight: 700, lineHeight: 1, margin: 0 }}>
                       Owen Wong
                     </p>
-                    <p style={{ fontFamily: "'Caveat', cursive", fontSize: 14, color: '#aa4488', margin: '3px 0 0' }}>
+                    <p style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 18, color: '#aa4488', margin: '3px 0 0' }}>
                       🇸🇬 SG · born in 🇫🇷 France
                     </p>
                   </motion.div>
@@ -236,7 +498,7 @@ export default function About() {
                           background: s.bg, border: `2px solid ${s.border}`,
                           borderRadius: 20, padding: '4px 12px',
                           boxShadow: `1px 2px 0 ${s.shadow}`,
-                          fontFamily: "'Caveat', cursive", fontSize: 14, color: '#333',
+                          fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 18, color: '#333',
                         }}
                       >{s.text}</motion.div>
                     ))}
@@ -248,31 +510,14 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* ══ BOOK SPINE / FOLD ══ */}
-        <div style={{
-          width: 28, flexShrink: 0, zIndex: 20,
-          position: 'relative', alignSelf: 'stretch',
-        }}>
-          {/* Left page shadow — darkens at the fold */}
-          <div style={{
-            position: 'absolute', top: 0, bottom: 0, left: 0, width: 14,
-            background: 'linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.06), transparent)',
-          }}/>
-          {/* Right page shadow */}
-          <div style={{
-            position: 'absolute', top: 0, bottom: 0, right: 0, width: 14,
-            background: 'linear-gradient(to left, rgba(0,0,0,0.18), rgba(0,0,0,0.06), transparent)',
-          }}/>
-          {/* Centre crease highlight */}
-          <div style={{
-            position: 'absolute', top: 0, bottom: 0,
-            left: '50%', transform: 'translateX(-50%)',
-            width: 2,
-            background: 'linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.55) 20%, rgba(255,255,255,0.55) 80%, rgba(255,255,255,0.0))',
-          }}/>
+        {/* ══ BOOK SPINE ══ */}
+        <div style={{ width: 28, flexShrink: 0, zIndex: 20, position: 'relative', alignSelf: 'stretch' }}>
+          <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: 14, background: 'linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.06), transparent)' }}/>
+          <div style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: 14, background: 'linear-gradient(to left, rgba(0,0,0,0.18), rgba(0,0,0,0.06), transparent)' }}/>
+          <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: 'linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.55) 20%, rgba(255,255,255,0.55) 80%, rgba(255,255,255,0.0))' }}/>
         </div>
 
-        {/* ══ RIGHT BINDER ══ */}
+        {/* ══ RIGHT BINDER — AI CHAT ══ */}
         <motion.div
           initial={{ opacity: 0, x: 70, rotate: 2 }}
           whileInView={{ opacity: 1, x: 0, rotate: 1 }}
@@ -303,128 +548,26 @@ export default function About() {
               border: '2.5px solid #a8e6cf', boxShadow: '2px 3px 0 #5cb88a',
               textAlign: 'center', marginBottom: 10, flexShrink: 0,
             }}>
-              <span style={{ fontFamily: "'Caveat', cursive", fontSize: 16, color: '#2a7a50', fontWeight: 700 }}>
-                ✏️ ABOUT ME メモ
+              <span style={{ fontFamily: "'Caveat', cursive", fontSize: 20, color: '#2a7a50', fontWeight: 700 }}>
+                🤖 OWEN BOT チャット
               </span>
             </div>
 
-            {/* Inner ruled page */}
+            {/* Inner ruled page with chat */}
             <div style={{ flex: 1, position: 'relative', zIndex: 1, minHeight: 0 }}>
-              <RuledPage marginColor="#ffb3cc">
-                <div style={{ padding: '10px 10px 10px 36px', boxSizing: 'border-box' }}>
-
-                  {/* Header */}
-                  <motion.p custom={0} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    style={{ fontFamily: "'Caveat', cursive", fontSize: 30, fontWeight: 700, margin: '0 0 2px', lineHeight: 1.1 }}>
-                    <span style={{ color: '#ee4444' }}>Hey! I'm</span>
-                    <span style={{ color: '#cc2266' }}> Owen</span>
-                    <span style={{ fontSize: 26 }}> 👋</span>
-                  </motion.p>
-
-                  {/* Squiggle underline */}
-                  <motion.svg custom={1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    viewBox="0 0 220 8" style={{ width: '100%', display: 'block', marginBottom: 10 }}>
-                    <path d="M0,4 C18,0 36,8 54,4 C72,0 90,8 108,4 C126,0 144,8 162,4 C180,0 198,8 216,4"
-                      fill="none" stroke="#ee4444" strokeWidth="2.5" strokeLinecap="round"/>
-                  </motion.svg>
-
-                  {/* Info pills */}
-                  {[
-                    { icon:'📚', text:'Final-year Applied AI @ SIT', bg:'#fff0f5', border:'#ffb3cc', shadow:'#f090b0', color:'#cc2266' },
-                    { icon:'🛡️', text:'GenAI Dev @ SP Group', bg:'#f0f8ff', border:'#b3d4ff', shadow:'#88aaee', color:'#2244aa' },
-                  ].map(({ icon, text, bg, border, shadow, color }, i) => (
-                    <motion.div key={i} custom={i+2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                      style={{ marginBottom: 6 }}>
-                      <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 6,
-                        background: bg, border: `2px solid ${border}`, borderRadius: 20,
-                        padding: '3px 12px', boxShadow: `1px 2px 0 ${shadow}`,
-                      }}>
-                        <span style={{ fontSize: 13 }}>{icon}</span>
-                        <span style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color }}>{text}</span>
-                      </div>
-                    </motion.div>
-                  ))}
-
-                  {/* Dashed divider */}
-                  <motion.svg custom={5} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    viewBox="0 0 220 6" style={{ width: '100%', display: 'block', margin: '6px 0 8px' }}>
-                    <line x1="0" y1="3" x2="220" y2="3" stroke="#ffd93d" strokeWidth="3" strokeLinecap="round" strokeDasharray="8,5"/>
-                  </motion.svg>
-
-                  {/* Things I love header */}
-                  <motion.div custom={6} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    style={{ marginBottom: 8 }}>
-                    <span style={{
-                      fontFamily: "'Caveat', cursive", fontSize: 17, fontWeight: 700, color: 'white',
-                      background: 'linear-gradient(135deg, #a8e6cf, #5cb88a)',
-                      borderRadius: 8, padding: '3px 12px', boxShadow: '2px 2px 0 #3a8a5a',
-                      display: 'inline-block',
-                    }}>
-                      すきなこと ♡ things i love
-                    </span>
-                  </motion.div>
-
-                  {[
-                    { emoji:'🎮', text:'League of Legends, Monster Hunter, Pokemon', color:'#8855cc', bg:'#f5f0ff', border:'#c8a8ff', shadow:'#9966dd' },
-                    { emoji:'🏃', text:'Trekking, Cycling', color:'#1a7a40', bg:'#f0fff0', border:'#a0e0b0', shadow:'#4a9a60' },
-                    { emoji:'🎸', text:'Currently Learning Bass Guitar', color:'#cc4400', bg:'#fff5f0', border:'#ffb890', shadow:'#dd6622' },
-                    { emoji:'🐠', text:'Animal Lover', color:'#0055aa', bg:'#f0f8ff', border:'#90c8ff', shadow:'#2266cc' },
-                  ].map(({ emoji, text, color, bg, border, shadow }, i) => (
-                    <motion.div key={i} custom={i+7} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                      style={{ marginBottom: 5 }}>
-                      <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 6,
-                        background: bg, border: `2px solid ${border}`, borderRadius: 20,
-                        padding: '3px 12px', boxShadow: `1px 2px 0 ${shadow}`,
-                      }}>
-                        <span style={{ fontSize: 13 }}>{emoji}</span>
-                        <span style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color }}>{text}</span>
-                      </div>
-                    </motion.div>
-                  ))}
-
-                  {/* Pink dashed divider */}
-                  <motion.svg custom={11} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    viewBox="0 0 220 6" style={{ width: '100%', display: 'block', margin: '6px 0 8px' }}>
-                    <line x1="0" y1="3" x2="220" y2="3" stroke="#ff9eb5" strokeWidth="3" strokeLinecap="round" strokeDasharray="6,5"/>
-                  </motion.svg>
-
-                  {/* Quote bubble */}
-                  <motion.div custom={12} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    style={{
-                      background: 'linear-gradient(135deg, #fff5f8, #ffe8f0)',
-                      border: '2.5px solid #ffb3cc', borderRadius: 12,
-                      padding: '7px 14px', boxShadow: '2px 3px 0 #f090b0',
-                      position: 'relative',
-                    }}>
-                    <span style={{ position: 'absolute', top: -10, left: 10, fontSize: 20, color: '#ffb3cc', lineHeight: 1 }}>"</span>
-                    <p style={{ fontFamily: "'Caveat', cursive", fontSize: 14, color: '#cc2266', lineHeight: 1.5, margin: 0, fontStyle: 'italic' }}>
-                      I love building things that actually<br/>work in the real world.
-                    </p>
-                  </motion.div>
-
-                  {/* Corner spinning star */}
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 6, marginTop: 8, alignItems: 'center' }}>
-                    <motion.div animate={{ scale: [1, 1.25, 1] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}>
-                      <HeartDoodle color="#ff9eb5" size={18}/>
-                    </motion.div>
-                    <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 9, ease: 'linear' }}>
-                      <StarDoodle color="#ffd93d" size={20}/>
-                    </motion.div>
-                    <motion.div animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}>
-                      <StarDoodle color="#b5a8ff" size={16}/>
-                    </motion.div>
-                  </div>
-
-                </div>
+              <RuledPage marginColor="#a0c4d8">
+                <ChatPanel />
               </RuledPage>
             </div>
           </div>
         </motion.div>
       </div>
 
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap');`}</style>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap');
+        textarea::placeholder { color: #cc226680; }
+        textarea::-webkit-scrollbar { display: none; }
+      `}</style>
     </section>
   )
 }
