@@ -6,7 +6,7 @@ import Contact from './components/Contact'
 import Certifications from './components/Certification'
 import MusicPlayer from './components/MusicPlayer'
 import Experience from './components/Experience'
-import FurinBackground from './components/furinbackground'
+import FurinBackground from './components/FurinBackground'
 
 function App() {
   return (
