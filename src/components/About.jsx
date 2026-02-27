@@ -210,16 +210,6 @@ function ChatPanel() {
         </svg>
         {/* Powered by badge */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 4,
-            background: '#f0f8ff', border: '1.5px solid #b3d4ff',
-            borderRadius: 20, padding: '1px 8px',
-          }}>
-            <span style={{ fontSize: 14 }}>⚡</span>
-            <span style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15, color: '#1a3a5a' }}>
-              Powered by Groq · llama-3.3-70b
-            </span>
-          </div>
         </div>
       </div>
 
