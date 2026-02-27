@@ -46,7 +46,7 @@ SKILLS & TECH
 
 PERSONALITY & HOBBIES
 - Describes himself as open-minded, direct, practical
-- Loves gaming: League of Legends, Mobile Legends, Valorant, Monster Hunter, Pokémon
+- Loves gaming: League of Legends, Mobile Legends, Monster Hunter, Pokémon
 - Active lifestyle: daily 10km walks/jogs, cycling, trekking
 - Currently learning bass guitar 🎸
 - Animal lover — has kept shrimp tanks and aquariums
