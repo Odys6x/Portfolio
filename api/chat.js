@@ -51,7 +51,6 @@ PERSONALITY & HOBBIES
 - Currently learning bass guitar 🎸
 - Animal lover — has kept shrimp tanks and aquariums
 - Enjoys cooking for his family
-- Exploring dating through Coffee Meets Bagel
 
 ACHIEVEMENTS
 - 2nd Place (1st Runner-Up) at HackRift 2025 with PathFinders
