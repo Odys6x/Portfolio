@@ -40,7 +40,7 @@ function LinkCard({ link, index }) {
     >
       <div style={{ color: '#E02020' }}>{ICONS[link.id]}</div>
       <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#fff', letterSpacing: '0.08em', lineHeight: 1 }}>{link.label}</p>
-      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#555', letterSpacing: '0.06em' }}>{link.sub}</p>
+      <p className="contact-sub" style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#555', letterSpacing: '0.06em' }}>{link.sub}</p>
     </motion.a>
   )
 }
@@ -87,6 +87,7 @@ export default function Contact() {
           #contact > div:last-child { padding: 0 20px !important; }
           .contact-links { flex-direction: column !important; }
           .contact-links > a { flex-direction: row !important; justify-content: flex-start !important; gap: 16px !important; padding: 20px 16px !important; }
+          .contact-sub { display: none !important; }
         }
       `}</style>
     </section>
