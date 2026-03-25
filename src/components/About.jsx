@@ -1,60 +1,27 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const PHOTO = '/assets/Owen.jpg'
+const PHOTO = '/assets/Owen2.jpg'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.45, ease: [0.22, 1, 0.36, 1] }
-  })
-}
 
 const STARTERS = [
-  "What's Owen working on? 🛡️",
-  "Tell me about PathFinders 🏆",
-  "What does Owen do for fun? 🎮",
-  "What tech does Owen know? 💻",
-  "Where has Owen worked? 💼",
+  "What's Owen working on?",
+  "Tell me about PathFinders",
+  "What tech does Owen know?",
+  "Where has Owen worked?",
+  "What does Owen do for fun?",
 ]
-
-function RuledPage({ children, marginColor = '#ffb3cc' }) {
-  return (
-    <div style={{ position: 'relative', background: '#fffdf6', borderRadius: 6, overflow: 'hidden', height: '100%' }}>
-      {Array.from({ length: 28 }).map((_, i) => (
-        <div key={i} style={{
-          position: 'absolute', left: 0, right: 0,
-          top: 20 + i * 22, height: 1,
-          background: '#ddeeff', opacity: 0.7,
-          pointerEvents: 'none',
-        }}/>
-      ))}
-      <div style={{
-        position: 'absolute', top: 0, bottom: 0, left: 28,
-        width: 2, background: marginColor, opacity: 0.5,
-        pointerEvents: 'none',
-      }}/>
-      <div style={{ position: 'relative', zIndex: 1, height: '100%' }}>
-        {children}
-      </div>
-    </div>
-  )
-}
 
 // ── Typing indicator dots ──
 function TypingDots() {
   return (
-    <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: '2px 0' }}>
-      {[0, 0.2, 0.4].map((delay, i) => (
+    <div style={{ display: 'flex', gap: 5, alignItems: 'center', padding: '2px 0' }}>
+      {[0, 0.18, 0.36].map((delay, i) => (
         <motion.div
           key={i}
-          animate={{ y: [0, -5, 0] }}
-          transition={{ repeat: Infinity, duration: 0.7, delay, ease: 'easeInOut' }}
-          style={{
-            width: 7, height: 7, borderRadius: '50%',
-            background: '#cc2266',
-          }}
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ repeat: Infinity, duration: 1, delay, ease: 'easeInOut' }}
+          style={{ width: 4, height: 4, borderRadius: '50%', background: '#E02020' }}
         />
       ))}
     </div>
@@ -66,50 +33,31 @@ function ChatBubble({ msg }) {
   const isUser = msg.role === 'user'
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      style={{
-        display: 'flex',
-        justifyContent: isUser ? 'flex-end' : 'flex-start',
-        marginBottom: 10,
-      }}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      style={{ display: 'flex', justifyContent: isUser ? 'flex-end' : 'flex-start', marginBottom: 16 }}
     >
-      {!isUser && (
-        <div style={{
-          width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-          background: 'linear-gradient(135deg, #ff9eb5, #ff6b9d)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 18, marginRight: 7, marginTop: 2,
-          boxShadow: '0 2px 6px rgba(200,50,80,0.3)',
-        }}>🤖</div>
-      )}
-      <div style={{
-        maxWidth: '78%',
-        background: isUser
-          ? 'linear-gradient(135deg, #ff9eb5, #ff6b9d)'
-          : 'rgba(255,255,255,0.92)',
-        color: isUser ? 'white' : '#333',
-        border: isUser ? 'none' : '1.5px solid #ffb3cc',
-        borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-        padding: '8px 13px',
-        fontFamily: "'Caveat', cursive", fontWeight: 600,
-        fontSize: 19,
-        lineHeight: 1.55,
-        boxShadow: isUser
-          ? '2px 3px 0 rgba(200,50,80,0.25)'
-          : '2px 3px 0 rgba(255,179,204,0.4)',
-      }}>
-        {msg.content}
-      </div>
-      {isUser && (
-        <div style={{
-          width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-          background: 'linear-gradient(135deg, #ffd93d, #f0a800)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 18, marginLeft: 7, marginTop: 2,
-          boxShadow: '0 2px 6px rgba(200,150,0,0.3)',
-        }}>😊</div>
+      {!isUser ? (
+        <div style={{ display: 'flex', gap: 14, maxWidth: '85%' }}>
+          <div style={{ width: 2, background: '#E02020', flexShrink: 0, borderRadius: 1 }} />
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#999', lineHeight: 1.75, fontWeight: 400 }}>
+            {msg.content}
+          </p>
+        </div>
+      ) : (
+        <p style={{
+          maxWidth: '75%',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 13,
+          color: '#ccc',
+          lineHeight: 1.65,
+          fontWeight: 400,
+          borderBottom: '1px solid #E02020',
+          paddingBottom: 4,
+        }}>
+          {msg.content}
+        </p>
       )}
     </motion.div>
   )
@@ -120,7 +68,7 @@ function ChatPanel() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hey there! 👋 I'm Owen Bot — ask me anything about Owen! Whether it's his projects, skills, or what he does for fun lah~",
+      content: "Ask me anything about Owen — his projects, skills, experience, or what he's currently building.",
     },
   ])
   const [input, setInput] = useState('')
@@ -173,7 +121,7 @@ function ChatPanel() {
       const data = await res.json()
       setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
     } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Aiyah, something went wrong leh 😅 Try again!' }])
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Something went wrong. Please try again.' }])
     } finally {
       setLoading(false)
     }
@@ -189,36 +137,16 @@ function ChatPanel() {
   return (
     <div style={{
       display: 'flex', flexDirection: 'column',
-      height: '100%', padding: '10px 10px 10px 36px',
+      height: '100%', padding: '0',
       boxSizing: 'border-box',
     }}>
-
-      {/* Header */}
-      <div style={{ marginBottom: 8, flexShrink: 0 }}>
-        <motion.p
-          initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-          style={{ fontFamily: "'Caveat', cursive", fontSize: 26, fontWeight: 700, margin: '0 0 2px', lineHeight: 1.1 }}
-        >
-          <span style={{ color: '#ee4444' }}>Ask me about</span>
-          <span style={{ color: '#cc2266' }}> Owen!</span>
-          <span style={{ fontSize: 22 }}> 💬</span>
-        </motion.p>
-        {/* Squiggle */}
-        <svg viewBox="0 0 220 8" style={{ width: '100%', display: 'block', marginBottom: 4 }}>
-          <path d="M0,4 C18,0 36,8 54,4 C72,0 90,8 108,4 C126,0 144,8 162,4 C180,0 198,8 216,4"
-            fill="none" stroke="#ee4444" strokeWidth="2.5" strokeLinecap="round"/>
-        </svg>
-        {/* Powered by badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-        </div>
-      </div>
 
       {/* Messages area */}
       <div ref={scrollContainerRef} style={{
         flex: 1, overflowY: 'auto', minHeight: 0,
         padding: '4px 0',
         scrollbarWidth: 'thin',
-        scrollbarColor: '#ffb3cc transparent',
+        scrollbarColor: '#2a2a2a transparent',
       }}>
         {messages.map((msg, i) => (
           <ChatBubble key={i} msg={msg} />
@@ -231,52 +159,37 @@ function ChatPanel() {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}
             >
-              <div style={{
-                width: 28, height: 28, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #ff9eb5, #ff6b9d)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18,
-              }}>🤖</div>
-              <div style={{
-                background: 'rgba(255,255,255,0.92)', border: '1.5px solid #ffb3cc',
-                borderRadius: '16px 16px 16px 4px', padding: '8px 14px',
-                boxShadow: '2px 3px 0 rgba(255,179,204,0.4)',
-              }}>
+              <div style={{ width: 2, background: '#E02020', flexShrink: 0, borderRadius: 1, alignSelf: 'stretch' }} />
+              <div style={{ paddingLeft: 14 }}>
                 <TypingDots />
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-
       </div>
 
-      {/* Starter pills — outside scroll so they don't push content */}
+      {/* Starter pills */}
       <AnimatePresence>
         {showStarters && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            style={{ flexShrink: 0, padding: '6px 0 2px' }}
+            style={{ flexShrink: 0, padding: '8px 0 4px' }}
           >
-            <p style={{
-              fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15, color: '#aa4488',
-              opacity: 0.7, marginBottom: 5,
-            }}>✦ Try asking:</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.3em', color: '#555', marginBottom: 8, textTransform: 'uppercase' }}>TRY ASKING</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
               {STARTERS.map((q) => (
                 <motion.button
                   key={q}
-                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileHover={{ x: 3 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => sendMessage(q)}
                   style={{
-                    fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15,
-                    color: '#cc2266', cursor: 'pointer',
-                    background: 'linear-gradient(135deg, #fff0f5, #ffe4f0)',
-                    border: '1.5px solid #ffb3cc', borderRadius: 20,
-                    padding: '3px 9px',
-                    boxShadow: '1px 2px 0 #f090b0',
-                    transition: 'all 0.15s',
+                    fontFamily: "'Inter', sans-serif", fontSize: 11,
+                    letterSpacing: '0.05em', color: '#888', cursor: 'pointer',
+                    background: 'none', border: '1px solid #2a2a2a', borderRadius: 2,
+                    padding: '4px 10px',
                   }}
                 >
                   {q}
@@ -288,275 +201,154 @@ function ChatPanel() {
       </AnimatePresence>
 
       {/* Input area */}
-      <div style={{
-        flexShrink: 0, marginTop: 8,
-        display: 'flex', gap: 6, alignItems: 'flex-end',
-      }}>
-        <div style={{
-          flex: 1, position: 'relative',
-          background: 'rgba(255,255,255,0.9)',
-          border: '2px solid #ffb3cc',
-          borderRadius: 14,
-          boxShadow: '2px 2px 0 #f090b0',
-          overflow: 'hidden',
-        }}>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={handleKey}
-            placeholder="Ask about Owen..."
-            rows={1}
-            style={{
-              width: '100%', border: 'none', outline: 'none',
-              background: 'transparent', resize: 'none',
-              fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 18, color: '#333',
-              padding: '8px 10px',
-              lineHeight: 1.4,
-            }}
-          />
-        </div>
+      <div style={{ flexShrink: 0, marginTop: 10, display: 'flex', gap: 12, alignItems: 'flex-end', borderTop: '1px solid #2a2a2a', paddingTop: 14 }}>
+        <textarea
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={handleKey}
+          placeholder="Ask about Owen..."
+          rows={1}
+          style={{
+            flex: 1, border: 'none', borderBottom: '1px solid #333', outline: 'none',
+            background: 'transparent', resize: 'none',
+            fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#bbb',
+            padding: '4px 0', lineHeight: 1.5,
+          }}
+        />
         <motion.button
-          whileHover={{ scale: 1.08, y: -2 }}
-          whileTap={{ scale: 0.93 }}
+          whileHover={{ color: '#E02020' }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => sendMessage()}
           disabled={loading || !input.trim()}
           style={{
-            width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
-            background: loading || !input.trim()
-              ? 'rgba(255,179,204,0.4)'
-              : 'linear-gradient(135deg, #ff9eb5, #ff6b9d)',
-            border: '2px solid #ffb3cc',
+            flexShrink: 0, background: 'none', border: 'none',
+            color: loading || !input.trim() ? '#333' : '#777',
             cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 20,
-            boxShadow: loading || !input.trim() ? 'none' : '2px 3px 0 #aa1144',
-            transition: 'all 0.2s',
+            fontFamily: "'Inter', sans-serif", fontSize: 10,
+            letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 500,
+            paddingBottom: 4,
           }}
         >
-          {loading ? '⏳' : '✉️'}
+          SEND →
         </motion.button>
       </div>
 
-      {/* Reset hint */}
+      {/* Reset */}
       {messages.length > 2 && !showStarters && (
         <motion.button
           initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           onClick={() => { setMessages([messages[0]]); setShowStarters(true) }}
           style={{
-            fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 15, color: '#aa4488',
-            opacity: 0.55, background: 'none', border: 'none', cursor: 'pointer',
-            marginTop: 4, textAlign: 'center',
+            fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em',
+            color: '#444', textTransform: 'uppercase', background: 'none',
+            border: 'none', cursor: 'pointer', marginTop: 8, textAlign: 'left',
           }}
         >
-          ↺ start over
+          ↺ RESET
         </motion.button>
       )}
     </div>
   )
 }
 
-const BINDER_HEIGHT = 580
-
 export default function About() {
   return (
-    <section
-      id="about"
-      style={{ background: 'transparent', position: 'relative', zIndex: 1, padding: '80px 16px', overflow: 'hidden' }}
-    >
-      {/* Section label */}
-      <motion.div
-        initial={{ opacity: 0, y: -16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 32 }}
-      >
-        <div style={{ width: 40, height: 3, borderRadius: 2, background: '#ff9eb5' }}/>
-        <p style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 26, color: '#ff6b9d', letterSpacing: '0.1em', margin: 0 }}>
-          私について ✦ about me
+    <section id="about" style={{ background: '#111', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80, overflow: 'hidden' }}>
+
+      {/* Section header */}
+      <div style={{ padding: '0 48px 0', marginBottom: 48 }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>
+          ISSUE 01 · FEATURE
         </p>
-        <div style={{ width: 40, height: 3, borderRadius: 2, background: '#ff9eb5' }}/>
-      </motion.div>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>
+          ABOUT
+        </h2>
+        <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
+      </div>
 
-      {/* ── Main binder row ── */}
-      <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'center', maxWidth: 860, margin: '0 auto', height: BINDER_HEIGHT }}>
-
-        {/* ══ LEFT BINDER ══ */}
+      {/* Two-column editorial layout */}
+      <div className="about-feature-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', maxWidth: 1200, margin: '0 auto', padding: '0 48px', gap: 0 }}>
+        {/* Left: Photo */}
         <motion.div
-          initial={{ opacity: 0, x: -70, rotate: -2 }}
-          whileInView={{ opacity: 1, x: 0, rotate: -1 }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          style={{ flex: 1, maxWidth: 370, position: 'relative', display: 'flex', flexDirection: 'column' }}
+          transition={{ duration: 0.7 }}
+          style={{ paddingRight: 48 }}
         >
-          <div style={{
-            flex: 1, display: 'flex', flexDirection: 'column',
-            background: 'linear-gradient(145deg, #ff6b6b, #dd3333)',
-            borderRadius: '14px 0 0 14px',
-            boxShadow: '-6px 8px 32px rgba(200,50,50,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
-            padding: '12px 10px 10px',
-            overflow: 'hidden',
-            position: 'relative',
-          }}>
-            {/* Polka dots */}
-            <svg style={{ position:'absolute', inset:0, width:'100%', height:'100%', opacity:0.10, pointerEvents:'none' }}>
-              {Array.from({length:120}).map((_,i) => (
-                <circle key={i} cx={`${(i%10)*11+5}%`} cy={`${Math.floor(i/10)*11+5}%`} r="5" fill="white"/>
-              ))}
-            </svg>
-
-            {/* Cover label */}
-            <div style={{
-              position: 'relative', zIndex: 1,
-              background: 'linear-gradient(160deg, #faf7f0 0%, #f2f6f8 100%)', borderRadius: 8, padding: '5px 0',
-              border: '2.5px solid #ffd93d', boxShadow: '2px 3px 0 #d4a800',
-              textAlign: 'center', marginBottom: 10, flexShrink: 0,
-            }}>
-              <span style={{ fontFamily: "'Caveat', cursive", fontSize: 20, color: '#cc3333', fontWeight: 700 }}>
-                📋 PROFILE ノート
-              </span>
-            </div>
-
-            {/* Inner ruled page */}
-            <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
-              <RuledPage marginColor="#a0c4d8">
-                <div style={{ padding: '14px 10px 14px 36px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', boxSizing: 'border-box' }}>
-
-                  {/* Polaroid */}
-                  <motion.div
-                    whileHover={{ rotate: 2, scale: 1.02 }}
-                    transition={{ type: 'spring', stiffness: 280 }}
-                    style={{
-                      background: '#fff',
-                      padding: '7px 7px 28px',
-                      boxShadow: '3px 4px 16px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.05)',
-                      borderRadius: 3,
-                      transform: 'rotate(-1.5deg)',
-                      width: '88%',
-                      flexShrink: 0,
-                      position: 'relative',
-                    }}
-                  >
-                    {/* Washi tape strips */}
-                    <div style={{ position:'absolute', top:-5, left:-16, width:42, height:14, background:'rgba(255,211,70,0.85)', borderRadius:2, transform:'rotate(-38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
-                    <div style={{ position:'absolute', top:-5, right:-10, width:42, height:14, background:'rgba(180,220,255,0.88)', borderRadius:2, transform:'rotate(38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
-                    <div style={{ position:'absolute', bottom:2, left:-10, width:38, height:13, background:'rgba(200,255,180,0.88)', borderRadius:2, transform:'rotate(38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
-                    <div style={{ position:'absolute', bottom:2, right:-16, width:38, height:13, background:'rgba(255,180,200,0.88)', borderRadius:2, transform:'rotate(-38deg)', boxShadow:'1px 1px 3px rgba(0,0,0,0.15)', zIndex:2 }}/>
-                    <img
-                      src={PHOTO} alt="Owen"
-                      style={{
-                        width: '100%', height: 220,
-                        objectFit: 'cover', objectPosition: 'center 15%',
-                        display: 'block', borderRadius: 2,
-                        filter: 'saturate(0.9) contrast(1.05)',
-                      }}
-                    />
-                    <p style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 19, color: '#666', textAlign: 'center', marginTop: 5, lineHeight: 1 }}>
-                      Owen ~ 2025 ☕
-                    </p>
-                  </motion.div>
-
-                  {/* Name sticker */}
-                  <motion.div
-                    animate={{ rotate: [-1, 1.5, -1] }}
-                    transition={{ repeat: Infinity, duration: 3.2, ease: 'easeInOut' }}
-                    style={{
-                      marginTop: 18,
-                      background: 'linear-gradient(135deg, #fff0f5, #ffe4f0)',
-                      border: '2.5px solid #ffb3cc', borderRadius: 12,
-                      padding: '6px 20px', boxShadow: '2px 3px 0 #f090b0',
-                      textAlign: 'center', flexShrink: 0,
-                    }}
-                  >
-                    <p style={{ fontFamily: "'Caveat', cursive", fontSize: 30, color: '#cc2266', fontWeight: 700, lineHeight: 1, margin: 0 }}>
-                      Owen Wong
-                    </p>
-                    <p style={{ fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 18, color: '#aa4488', margin: '3px 0 0' }}>
-                      🇸🇬 SG · born in 🇫🇷 France
-                    </p>
-                  </motion.div>
-
-                  {/* Badge stickers */}
-                  <div style={{ display: 'flex', gap: 8, marginTop: 12, flexShrink: 0 }}>
-                    {[
-                      { bg: '#ffd93d', border: '#d4a800', shadow: '#a07a00', text: '⭐ AI Dev' },
-                      { bg: '#a8e6cf', border: '#5cb88a', shadow: '#3a8a5a', text: '🎮 Gamer' },
-                    ].map((s, i) => (
-                      <motion.div key={i}
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{ repeat: Infinity, duration: 2 + i * 0.6, ease: 'easeInOut', delay: i * 0.4 }}
-                        style={{
-                          background: s.bg, border: `2px solid ${s.border}`,
-                          borderRadius: 20, padding: '4px 12px',
-                          boxShadow: `1px 2px 0 ${s.shadow}`,
-                          fontFamily: "'Caveat', cursive", fontWeight: 600, fontSize: 18, color: '#333',
-                        }}
-                      >{s.text}</motion.div>
-                    ))}
-                  </div>
-
-                </div>
-              </RuledPage>
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
+            <img
+              src={PHOTO}
+              alt="Owen"
+              style={{ width: '100%', height: 520, objectFit: 'cover', objectPosition: 'center 15%', display: 'block', filter: 'contrast(1.05) saturate(0.9)' }}
+            />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '40px 16px 14px', background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)' }}>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2025</p>
             </div>
           </div>
         </motion.div>
 
-        {/* ══ BOOK SPINE ══ */}
-        <div style={{ width: 28, flexShrink: 0, zIndex: 20, position: 'relative', alignSelf: 'stretch' }}>
-          <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: 14, background: 'linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.06), transparent)' }}/>
-          <div style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: 14, background: 'linear-gradient(to left, rgba(0,0,0,0.18), rgba(0,0,0,0.06), transparent)' }}/>
-          <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: 'linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.55) 20%, rgba(255,255,255,0.55) 80%, rgba(255,255,255,0.0))' }}/>
-        </div>
-
-        {/* ══ RIGHT BINDER — AI CHAT ══ */}
+        {/* Right: Bio text */}
         <motion.div
-          initial={{ opacity: 0, x: 70, rotate: 2 }}
-          whileInView={{ opacity: 1, x: 0, rotate: 1 }}
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          style={{ flex: 1, maxWidth: 370, position: 'relative', display: 'flex', flexDirection: 'column' }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          style={{ paddingLeft: 48, borderLeft: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
-          <div style={{
-            flex: 1, display: 'flex', flexDirection: 'column',
-            background: 'linear-gradient(145deg, #dd3333, #bb1111)',
-            borderRadius: '0 14px 14px 0',
-            boxShadow: '6px 8px 32px rgba(200,50,50,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
-            padding: '12px 10px 10px',
-            overflow: 'hidden',
-            position: 'relative',
-          }}>
-            {/* Polka dots */}
-            <svg style={{ position:'absolute', inset:0, width:'100%', height:'100%', opacity:0.10, pointerEvents:'none' }}>
-              {Array.from({length:120}).map((_,i) => (
-                <circle key={i} cx={`${(i%10)*11+5}%`} cy={`${Math.floor(i/10)*11+5}%`} r="5" fill="white"/>
+          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 52, color: '#E02020', lineHeight: 1, marginBottom: 28, letterSpacing: '0.02em' }}>
+            AI ENGINEER<br />&amp; DEVELOPER
+          </p>
+
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: '#888', lineHeight: 1.85, marginBottom: 24, fontWeight: 400 }}>
+            Final year student at Singapore Institute of Technology, specializing in AI and full-stack development. Currently a GenAI Developer at SP Group building intelligent systems that actually solve real problems.
+          </p>
+
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: '#999', lineHeight: 1.85, marginBottom: 32, fontWeight: 400 }}>
+            Passionate about bridging the gap between cutting-edge AI research and practical applications — from cybersecurity incident response to career coaching chatbots.
+          </p>
+
+          {/* Skills list */}
+          <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: 24 }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.3em', color: '#777', marginBottom: 16, textTransform: 'uppercase' }}>SPECIALTIES</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {['Python', 'LangGraph', 'RAG', 'DeepSeek', 'AWS', 'React', 'Full Stack', 'Computer Vision'].map(skill => (
+                <span key={skill} style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.15em', color: '#888', border: '1px solid #2a2a2a', padding: '4px 12px', textTransform: 'uppercase' }}>
+                  {skill}
+                </span>
               ))}
-            </svg>
-
-            {/* Cover label */}
-            <div style={{
-              position: 'relative', zIndex: 1,
-              background: '#fff9e6', borderRadius: 8, padding: '5px 0',
-              border: '2.5px solid #a8e6cf', boxShadow: '2px 3px 0 #5cb88a',
-              textAlign: 'center', marginBottom: 10, flexShrink: 0,
-            }}>
-              <span style={{ fontFamily: "'Caveat', cursive", fontSize: 20, color: '#2a7a50', fontWeight: 700 }}>
-                🤖 OWEN BOT チャット
-              </span>
-            </div>
-
-            {/* Inner ruled page with chat */}
-            <div style={{ flex: 1, position: 'relative', zIndex: 1, minHeight: 0 }}>
-              <RuledPage marginColor="#a0c4d8">
-                <ChatPanel />
-              </RuledPage>
             </div>
           </div>
         </motion.div>
       </div>
 
+      {/* AI Chat - editorial Q&A feature */}
+      <div style={{ maxWidth: 1200, margin: '80px auto 0', padding: '0 48px' }}>
+        <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: 56 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 40 }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', textTransform: 'uppercase' }}>ASK THE SUBJECT</p>
+            <div style={{ flex: 1, height: 1, background: '#2a2a2a' }} />
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: '#333', textTransform: 'uppercase' }}>AI-POWERED Q&amp;A</p>
+          </div>
+          <div className="about-chat-container" style={{ maxWidth: 860, margin: '0 auto' }}>
+            <div style={{ height: 420 }}>
+              <ChatPanel />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap');
-        textarea::placeholder { color: #cc226680; }
+        textarea::placeholder { color: #333; }
         textarea::-webkit-scrollbar { display: none; }
+        @media (max-width: 767px) {
+          .about-feature-grid { grid-template-columns: 1fr !important; padding: 0 20px !important; }
+          .about-feature-grid > *:first-child { padding-right: 0 !important; }
+          .about-feature-grid > *:last-child { padding-left: 0 !important; border-left: none !important; padding-top: 32px !important; }
+          #about > div:first-child { padding: 0 20px 0 !important; }
+          .about-chat-container { max-width: 100% !important; }
+          #about > div:last-child { padding: 0 20px !important; }
+        }
       `}</style>
     </section>
   )

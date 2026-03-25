@@ -6,17 +6,15 @@ import Contact from './components/Contact'
 import Certifications from './components/Certification'
 import MusicPlayer from './components/MusicPlayer'
 import Experience from './components/Experience'
-import FurinBackground from './components/FurinBackground'
 
 function App() {
   return (
-    <div>
+    <div className="pt-0 md:pt-12 pb-14 md:pb-0">
       <Navbar />
       <MusicPlayer />
       <Hero />
-      <FurinBackground/>
       <About />
-      <Experience /> 
+      <Experience />
       <Projects />
       <Certifications />
       <Contact />

@@ -1,91 +1,66 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 function Navbar() {
-  const [hovered, setHovered] = useState(null)
-
   const links = [
-  { label: 'About', jp: '私について', href: 'about' },
-  { label: 'Projects', jp: 'プロジェクト', href: 'projects' },
-  { label: 'Contact', jp: '連絡先', href: 'contact' },
-]
+    { label: 'About', href: 'about' },
+    { label: 'Projects', href: 'projects' },
+    { label: 'Contact', href: 'contact' },
+  ]
 
-const scrollTo = (id) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
-    <motion.nav
-      initial={{ x: -80, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 h-full z-50 flex flex-col justify-between items-center py-10 px-4 w-16`}
-        style={{ 
-        borderRight: '1px solid rgba(123,196,196,0.2)',
-        backgroundColor: 'rgba(250, 245, 235, 0.99)' 
-        }}
-    >
-      {/* Top logo - vertical text */}
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        className="flex flex-col items-center gap-1 cursor-pointer"
+    <>
+      <motion.nav
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="hidden md:flex fixed top-0 left-0 right-0 h-12 z-50 items-center justify-between px-8"
+        style={{ borderBottom: '1px solid #2a2a2a', backgroundColor: 'rgba(13,13,13,0.97)', backdropFilter: 'blur(8px)', paddingRight: 56 }}
       >
-        <span
-          className="text-[#2d5a6b] font-bold text-xs tracking-widest"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          オウェン
-        </span>
-        <div className="w-px h-8 bg-[#7bc4c4]/40" />
-      </motion.div>
-
-      {/* Nav links - vertical */}
-      <ul className="flex flex-col items-center gap-10">
-        {links.map((link) => (
-          <motion.li
-                key={link.label}
-                onHoverStart={() => setHovered(link.label)}
-                onHoverEnd={() => setHovered(null)}
-                whileHover={{ x: 3 }}
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, letterSpacing: '0.12em', color: '#E02020', fontWeight: 600 }}>
+          オウェン・ウォン
+        </div>
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.3em', color: '#999', textTransform: 'uppercase' }}>
+          AI Engineer · Developer · Singapore
+        </div>
+        <ul className="flex items-center gap-8">
+          {links.map((link) => (
+            <li key={link.label}>
+              <button
                 onClick={() => scrollTo(link.href)}
-                className="flex flex-col items-center gap-2 cursor-pointer group"
-                >
-            {/* Japanese label */}
-            <motion.span
-              animate={{ opacity: hovered === link.label ? 1 : 0, y: hovered === link.label ? 0 : 5 }}
-              transition={{ duration: 0.2 }}
-              className="text-[#7bc4c4] text-[9px] tracking-widest"
-              style={{ writingMode: 'vertical-rl' }}
-            >
-              {link.jp}
-            </motion.span>
+                style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#aaa', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}
+                onMouseEnter={e => e.target.style.color = '#E02020'}
+                onMouseLeave={e => e.target.style.color = '#aaa'}
+              >
+                {link.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </motion.nav>
 
-            {/* Dot indicator */}
-            <motion.div
-              animate={{ backgroundColor: hovered === link.label ? '#7bc4c4' : '#c9b8a8' }}
-              className="w-1.5 h-1.5 rounded-full"
-            />
-
-            {/* English label */}
-            <span
-              className="text-[#3d3530] group-hover:text-[#2d5a6b] text-[10px] tracking-widest transition-colors duration-200"
-              style={{ writingMode: 'vertical-rl' }}
-            >
-              {link.label}
-            </span>
-          </motion.li>
-        ))}
-      </ul>
-
-      {/* Bottom - small train icon */}
-      <motion.div
-        animate={{ y: [0, -4, 0] }}
-        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-        className="text-[#7bc4c4] text-lg"
+      <motion.nav
+        initial={{ y: 80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="flex md:hidden fixed bottom-0 left-0 right-0 h-14 z-50 items-center justify-around px-4"
+        style={{ borderTop: '1px solid #2a2a2a', backgroundColor: 'rgba(13,13,13,0.97)', backdropFilter: 'blur(8px)' }}
       >
-        🚃
-      </motion.div>
-    </motion.nav>
+        <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color: '#E02020', letterSpacing: '0.05em' }}>OW</div>
+        {links.map((link) => (
+          <button
+            key={link.label}
+            onClick={() => scrollTo(link.href)}
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#666', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}
+          >
+            {link.label}
+          </button>
+        ))}
+      </motion.nav>
+    </>
   )
 }
 

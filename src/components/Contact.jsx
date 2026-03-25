@@ -1,69 +1,92 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const LINKS = [
-  { id:'github', emoji:'🐙', label:'GitHub', ja:'ギットハブ', sub:'github.com/Odys6x', href:'https://github.com/Odys6x', bg:'linear-gradient(135deg, #e8f0ff, #d0e0ff)', border:'#92b4ff', shadow:'#5577ee', color:'#2244bb', tape:'rgba(180,200,255,0.85)', rotate:-1.5 },
-  { id:'linkedin', emoji:'💼', label:'LinkedIn', ja:'リンクトイン', sub:'linkedin.com/in/owenwong', href:'https://linkedin.com/in/owenwong', bg:'linear-gradient(135deg, #e8fff4, #ccf5e4)', border:'#7ddaaa', shadow:'#3aaa70', color:'#1a7a48', tape:'rgba(180,255,210,0.85)', rotate:1 },
-  { id:'email', emoji:'💌', label:'Email', ja:'メール', sub:'phoinexw@gmail.com', href:'mailto:phoinexw@gmail.com', bg:'linear-gradient(135deg, #fff0f5, #ffd6e8)', border:'#ffaacc', shadow:'#ee6699', color:'#cc2266', tape:'rgba(255,180,210,0.85)', rotate:-0.8 },
+  { id:'github',   label:'GitHub',   sub:'github.com/Odys6x',      href:'https://github.com/Odys6x' },
+  { id:'linkedin', label:'LinkedIn', sub:'linkedin.com/in/owenwong', href:'https://linkedin.com/in/owenwong' },
+  { id:'email',    label:'Email',    sub:'phoinexw@gmail.com',       href:'mailto:phoinexw@gmail.com' },
 ]
 
+const ICONS = {
+  github: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+    </svg>
+  ),
+  linkedin: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  ),
+  email: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="M2 7l10 7 10-7"/>
+    </svg>
+  ),
+}
 
 function LinkCard({ link, index }) {
-  const [hovered, setHovered] = useState(false)
   return (
-    <motion.a href={link.href} target={link.id!=='email'?'_blank':undefined} rel="noopener noreferrer"
-      initial={{ opacity:0, y:40, rotate:link.rotate }} whileInView={{ opacity:1, y:0, rotate:link.rotate }} viewport={{ once:true }}
-      transition={{ delay:index*0.12, duration:0.55, ease:[0.22,1,0.36,1] }}
-      whileHover={{ y:-12, rotate:0, scale:1.05, zIndex:10 }}
-      onHoverStart={()=>setHovered(true)} onHoverEnd={()=>setHovered(false)}
-      style={{ position:'relative', textDecoration:'none', display:'block' }}>
-      <div style={{ position:'absolute', top:-10, left:'50%', transform:`translateX(-50%) rotate(${link.rotate*-1.5}deg)`, width:55, height:15, background:link.tape, borderRadius:3, boxShadow:'0 1px 4px rgba(0,0,0,0.1)', zIndex:2 }}/>
-      <div style={{ background:link.bg, border:`2.5px solid ${link.border}`, borderRadius:20, padding:'28px 28px 22px', boxShadow:`3px 5px 0 ${link.shadow}, 0 8px 24px rgba(0,0,0,0.07)`, position:'relative', overflow:'hidden' }}>
-        {Array.from({length:6}).map((_,i)=><div key={i} style={{ position:'absolute', left:0, right:0, top:24+i*22, height:1, background:link.border, opacity:0.2, pointerEvents:'none' }}/>)}
-        <div style={{ position:'relative', zIndex:1, display:'flex', alignItems:'center', gap:18 }}>
-          <motion.div animate={{ rotate:hovered?[0,-15,15,-10,10,0]:0 }} transition={{ duration:0.5 }} style={{ fontSize: 56, lineHeight:1, flexShrink:0, filter:'drop-shadow(2px 3px 4px rgba(0,0,0,0.12))' }}>{link.emoji}</motion.div>
-          <div style={{ flex:1 }}>
-            <div style={{ display:'flex', alignItems:'baseline', gap:8, marginBottom:2 }}>
-              <p style={{ fontFamily:"'Caveat', cursive", fontSize: 34, fontWeight:700, color:link.color, margin:0, lineHeight:1 }}>{link.label}</p>
-              <span style={{ fontFamily:"'Caveat', cursive", fontSize: 18, fontWeight:600, color:link.color, opacity:0.5, letterSpacing:'0.05em' }}>{link.ja}</span>
-            </div>
-            <p style={{ fontFamily:"'Caveat', cursive", fontSize: 19, fontWeight:600, color:link.color, opacity:0.36, margin:0 }}>{link.sub}</p>
-          </div>
-          <motion.div animate={{ x:hovered?6:0 }} transition={{ type:'spring', stiffness:400 }} style={{ fontFamily:"'Caveat', cursive", fontSize: 34, fontWeight:700, color:link.color, opacity:0.5, flexShrink:0 }}>→</motion.div>
-        </div>
-      </div>
+    <motion.a
+      href={link.href}
+      target={link.id !== 'email' ? '_blank' : undefined}
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      whileHover={{ y: -4 }}
+      style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '36px 24px', border: '1px solid #2a2a2a', cursor: 'pointer', flex: 1 }}
+    >
+      <div style={{ color: '#E02020' }}>{ICONS[link.id]}</div>
+      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#fff', letterSpacing: '0.08em', lineHeight: 1 }}>{link.label}</p>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#555', letterSpacing: '0.06em' }}>{link.sub}</p>
     </motion.a>
   )
 }
 
 export default function Contact() {
   return (
-    <section id="contact" style={{ background: 'transparent', position: 'relative', zIndex: 1, padding:'80px 24px 60px', overflow:'hidden' }}>
-      <motion.div initial={{ opacity:0, y:-20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} style={{ textAlign:'center', marginBottom:50 }}>
-        <p style={{ fontFamily:"'Caveat', cursive", fontSize: 22, fontWeight:700, color:'#7a9ab5', letterSpacing:'0.3em', margin:'0 0 6px' }}>連絡先 — contact</p>
-        <h2 style={{ fontFamily:"'Caveat', cursive", fontSize: 60, fontWeight:700, color:'#2a3a50', margin:'0 0 14px', lineHeight:1 }}>Let's Connect!</h2>
-        <svg viewBox="0 0 300 10" style={{ width:240, display:'block', margin:'0 auto 16px' }}>
-          <path d="M0,5 C30,1 60,9 90,5 C120,1 150,9 180,5 C210,1 240,9 270,5 C285,1 296,8 300,5" fill="none" stroke="#ff9eb5" strokeWidth="3" strokeLinecap="round"/>
-        </svg>
-        <motion.div initial={{ opacity:0, y:10 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ delay:0.2 }}
-          style={{ display:'inline-block', background:'linear-gradient(135deg, #fffdf6, #fff8e8)', border:'2.5px solid #ffd93d', borderRadius:14, padding:'10px 24px', boxShadow:'2px 3px 0 #d4a800', position:'relative' }}>
-          <div style={{ position:'absolute', top:-8, left:'50%', transform:'translateX(-50%) rotate(-3deg)', width:48, height:14, background:'rgba(255,211,70,0.8)', borderRadius:3 }}/>
-          <p style={{ fontFamily:"'Caveat', cursive", fontSize: 22, fontWeight:600, color:'#7a5800', margin:0 }}>whether it's a job opp, collab, or just a chat — inbox always open</p>
-        </motion.div>
-      </motion.div>
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))', gap:32, maxWidth:1000, margin:'0 auto 60px', alignItems:'start' }}>
-        {LINKS.map((link,i) => <LinkCard key={link.id} link={link} index={i}/>)}
+    <section id="contact" style={{ background: '#0D0D0D', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 100 }}>
+      <div style={{ padding: '0 48px', marginBottom: 48, textAlign: 'center' }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>GET IN TOUCH</p>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>LET'S CONNECT</h2>
+        <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
       </div>
-      <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} transition={{ delay:0.5 }} style={{ textAlign:'center' }}>
-        <svg viewBox="0 0 400 10" style={{ width:'60%', maxWidth:500, display:'block', margin:'0 auto 16px' }}>
-          <path d="M0,5 C40,1 80,9 120,5 C160,1 200,9 240,5 C280,1 320,9 360,5 C380,1 396,8 400,5" fill="none" stroke="#ffb3cc" strokeWidth="2" strokeLinecap="round" strokeDasharray="6,4"/>
-        </svg>
-        <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:10 }}>
-          <motion.div animate={{ rotate:360 }} transition={{ repeat:Infinity, duration:8, ease:'linear' }} style={{ fontSize:16 }}>✦</motion.div>
-          <motion.div animate={{ scale:[1,1.3,1] }} transition={{ repeat:Infinity, duration:1.5 }} style={{ fontSize:16 }}>♡</motion.div>
+      <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px' }}>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#666', lineHeight: 1.8, marginBottom: 48, textAlign: 'center' }}
+        >
+          Whether it's a job opportunity, a collaboration, or just a chat — my inbox is always open.
+        </motion.p>
+
+        <div style={{ display: 'flex', gap: 16 }}>
+          {LINKS.map((link, i) => (
+            <LinkCard key={link.id} link={link} index={i} />
+          ))}
         </div>
-      </motion.div>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap');`}</style>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          style={{ marginTop: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+        >
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: '#333', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2025</p>
+          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 16, color: '#333', letterSpacing: '0.1em' }}>VOL.01</p>
+        </motion.div>
+      </div>
+      <style>{`
+        @media (max-width: 767px) {
+          #contact > div { padding: 0 20px !important; }
+          #contact .contact-links { flex-direction: column !important; }
+        }
+      `}</style>
     </section>
   )
 }
