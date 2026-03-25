@@ -77,7 +77,7 @@ export default function Contact() {
           transition={{ delay: 0.5 }}
           style={{ marginTop: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: '#333', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2025</p>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: '#333', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2026</p>
           <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 16, color: '#333', letterSpacing: '0.1em' }}>VOL.01</p>
         </motion.div>
       </div>

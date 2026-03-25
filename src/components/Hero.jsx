@@ -37,7 +37,7 @@ export default function Hero() {
         >
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>VOL.01</span>
           <span style={{ width: 16, height: 1, background: '#2a2a2a', display: 'inline-block' }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>2025</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>2026</span>
           <span style={{ width: 16, height: 1, background: '#2a2a2a', display: 'inline-block' }} />
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>SINGAPORE</span>
         </motion.div>
@@ -78,7 +78,7 @@ export default function Hero() {
             transition={{ delay: 0.55, duration: 0.6 }}
             style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#999', lineHeight: 1.8, marginTop: 20, maxWidth: 380 }}
           >
-            Final year AI student at Singapore Institute of Technology. Currently GenAI Developer at SP Group — building systems that cut incident response from 45 min to under 5.
+            I build AI systems that actually do things — not just demos. From cutting incident response times to winning hackathons, I turn research into real impact.
           </motion.p>
         </div>
 

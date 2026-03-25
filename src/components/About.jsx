@@ -283,7 +283,7 @@ export default function About() {
               style={{ width: '100%', height: 'auto', display: 'block', filter: 'contrast(1.05) saturate(0.9)' }}
             />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '40px 16px 14px', background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)' }}>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2025</p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2026</p>
             </div>
           </div>
         </motion.div>
@@ -301,11 +301,11 @@ export default function About() {
           </p>
 
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: '#888', lineHeight: 1.85, marginBottom: 24, fontWeight: 400 }}>
-            Final year student at Singapore Institute of Technology, specializing in AI and full-stack development. Currently a GenAI Developer at SP Group building intelligent systems that actually solve real problems.
+            I'm Owen — a Singapore-based AI engineer who genuinely enjoys figuring out how to make machines useful. Currently wrapping up my final year at SIT while interning at SP Group, where I've been building AI agents that actually get used in production.
           </p>
 
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: '#999', lineHeight: 1.85, marginBottom: 32, fontWeight: 400 }}>
-            Passionate about bridging the gap between cutting-edge AI research and practical applications — from cybersecurity incident response to career coaching chatbots.
+            Outside of work I enjoy gaming, staying up too late on side projects, and occasionally pretending I'll go to the gym. If you want to build something interesting, I'm probably already thinking about it.
           </p>
 
           {/* Skills list */}
