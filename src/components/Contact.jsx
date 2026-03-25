@@ -50,7 +50,7 @@ export default function Contact() {
     <section id="contact" style={{ background: '#0D0D0D', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 100 }}>
       <div style={{ padding: '0 48px', marginBottom: 48, textAlign: 'center' }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>GET IN TOUCH</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>LET'S CONNECT</h2>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>LET'S CONNECT</h2>
         <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
       </div>
       <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px' }}>
@@ -64,7 +64,7 @@ export default function Contact() {
           Whether it's a job opportunity, a collaboration, or just a chat — my inbox is always open.
         </motion.p>
 
-        <div style={{ display: 'flex', gap: 16 }}>
+        <div className="contact-links" style={{ display: 'flex', gap: 16 }}>
           {LINKS.map((link, i) => (
             <LinkCard key={link.id} link={link} index={i} />
           ))}
@@ -83,8 +83,10 @@ export default function Contact() {
       </div>
       <style>{`
         @media (max-width: 767px) {
-          #contact > div { padding: 0 20px !important; }
-          #contact .contact-links { flex-direction: column !important; }
+          #contact > div:first-child { padding: 0 20px !important; }
+          #contact > div:last-child { padding: 0 20px !important; }
+          .contact-links { flex-direction: column !important; }
+          .contact-links > a { flex-direction: row !important; justify-content: flex-start !important; gap: 16px !important; padding: 20px 16px !important; }
         }
       `}</style>
     </section>

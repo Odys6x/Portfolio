@@ -63,7 +63,7 @@ export default function Projects() {
     <section id="projects" style={{ background: '#0D0D0D', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
       <div style={{ padding: '0 48px', marginBottom: 48 }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>PORTFOLIO</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>WHAT I'VE BUILT</h2>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>WHAT I'VE BUILT</h2>
         <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
       </div>
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px' }}>
@@ -84,8 +84,9 @@ export default function Projects() {
       </div>
       <style>{`
         @media (max-width: 767px) {
+          #projects > div:first-child { padding: 0 20px !important; }
           #projects > div:last-child { padding: 0 20px !important; }
-          .project-grid { grid-template-columns: 1fr !important; }
+          .project-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
         }
       `}</style>
     </section>

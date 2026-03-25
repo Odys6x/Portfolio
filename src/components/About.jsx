@@ -260,7 +260,7 @@ export default function About() {
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>
           ISSUE 01 · FEATURE
         </p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>
           ABOUT
         </h2>
         <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
@@ -280,7 +280,7 @@ export default function About() {
             <img
               src={PHOTO}
               alt="Owen"
-              style={{ width: '100%', height: 520, objectFit: 'cover', objectPosition: 'center 15%', display: 'block', filter: 'contrast(1.05) saturate(0.9)' }}
+              style={{ width: '100%', height: 'auto', display: 'block', filter: 'contrast(1.05) saturate(0.9)' }}
             />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '40px 16px 14px', background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)' }}>
               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2025</p>
@@ -296,7 +296,7 @@ export default function About() {
           transition={{ duration: 0.7, delay: 0.1 }}
           style={{ paddingLeft: 48, borderLeft: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
-          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 52, color: '#E02020', lineHeight: 1, marginBottom: 28, letterSpacing: '0.02em' }}>
+          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(32px, 5vw, 52px)', color: '#E02020', lineHeight: 1, marginBottom: 28, letterSpacing: '0.02em' }}>
             AI ENGINEER<br />&amp; DEVELOPER
           </p>
 
@@ -347,7 +347,8 @@ export default function About() {
           .about-feature-grid > *:last-child { padding-left: 0 !important; border-left: none !important; padding-top: 32px !important; }
           #about > div:first-child { padding: 0 20px 0 !important; }
           .about-chat-container { max-width: 100% !important; }
-          #about > div:last-child { padding: 0 20px !important; }
+          .about-chat-container > div { height: 480px !important; }
+          #about > div:last-child { padding: 0 20px !important; margin-top: 48px !important; }
         }
       `}</style>
     </section>

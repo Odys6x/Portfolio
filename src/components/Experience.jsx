@@ -89,7 +89,7 @@ function CompanyCard({ group, index }) {
       </div>
 
       {/* Company headline */}
-      <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(42px, 5vw, 68px)', color: hasCurrent ? '#E02020' : '#fff', letterSpacing: '0.02em', lineHeight: 0.9, marginBottom: 28 }}>
+      <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(28px, 6vw, 68px)', color: hasCurrent ? '#E02020' : '#fff', letterSpacing: '0.02em', lineHeight: 0.9, marginBottom: 28 }}>
         {group.company}
       </h3>
 
@@ -99,7 +99,7 @@ function CompanyCard({ group, index }) {
           <div key={i} className="exp-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 40, alignItems: 'start', paddingTop: i > 0 ? 24 : 0, borderTop: i > 0 ? '1px solid #1e1e1e' : 'none' }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
-                <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, color: '#bbb', letterSpacing: '0.06em', lineHeight: 1 }}>{r.role}</p>
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(18px, 3vw, 28px)', color: '#bbb', letterSpacing: '0.06em', lineHeight: 1 }}>{r.role}</p>
               </div>
               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: '#555', textTransform: 'uppercase', marginBottom: 12 }}>{r.period} · {r.type}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -125,7 +125,7 @@ export default function Experience() {
     <section id="experience" style={{ background: '#111', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
       <div style={{ padding: '0 48px', marginBottom: 48, textAlign: 'right' }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>CAREER</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>WHERE I'VE WORKED</h2>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>WHERE I'VE WORKED</h2>
         <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
       </div>
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px' }}>
@@ -135,9 +135,10 @@ export default function Experience() {
       </div>
       <style>{`
         @media (max-width: 767px) {
+          #experience > div:first-child { padding: 0 20px !important; }
           #experience > div:last-child { padding: 0 20px !important; }
-          .exp-cols { grid-template-columns: 1fr !important; }
-          .exp-cols > *:last-child { border-left: none !important; padding-left: 0 !important; padding-top: 16px !important; }
+          .exp-cols { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .exp-cols > *:last-child { border-left: none !important; padding-left: 0 !important; padding-top: 0 !important; }
         }
       `}</style>
     </section>

@@ -154,8 +154,10 @@ export default function Hero() {
       <style>{`
         @media (max-width: 767px) {
           #hero { flex-direction: column !important; }
-          #hero > div:first-child { flex: none !important; padding: 100px 24px 36px !important; }
-          #hero > div:last-child { flex: none !important; height: 55vw !important; min-height: 260px; }
+          #hero > div:first-child { flex: none !important; padding: 80px 20px 32px !important; }
+          #hero > div:last-child { flex: none !important; height: 60vw !important; min-height: 240px; }
+          #hero > div:last-child > div:first-child { padding: 0 !important; }
+          #hero > div:last-child > div:last-child { padding: 8px 16px 16px !important; }
         }
       `}</style>
     </section>

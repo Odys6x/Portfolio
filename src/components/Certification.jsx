@@ -19,14 +19,14 @@ function CertCard({ cert, index }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.2em', color: '#777', textTransform: 'uppercase' }}>{cert.issuer}</span>
         </div>
-        <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 40, color: '#E02020', letterSpacing: '0.03em', lineHeight: 1, marginBottom: 4 }}>{cert.title}</h3>
+        <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(26px, 4vw, 40px)', color: '#E02020', letterSpacing: '0.03em', lineHeight: 1, marginBottom: 4 }}>{cert.title}</h3>
         <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#aaa', letterSpacing: '0.03em', lineHeight: 1, marginBottom: 16 }}>{cert.subtitle}</p>
         <div style={{ width: 32, height: 1, background: '#E02020', marginBottom: 16 }} />
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#aaa', lineHeight: 1.75 }}>{cert.desc}</p>
       </div>
       {cert.img && (
         <div className="cert-img" style={{ overflow: 'hidden' }}>
-          <img src={cert.img} alt={cert.title} style={{ width: '100%', height: 220, objectFit: 'cover', display: 'block', filter: 'contrast(1.05) saturate(0.7) brightness(0.85)' }} />
+          <img src={cert.img} alt={cert.title} style={{ width: '100%', height: 'auto', display: 'block', filter: 'contrast(1.05) saturate(0.7) brightness(0.85)' }} />
         </div>
       )}
     </motion.div>
@@ -38,7 +38,7 @@ export default function Certifications() {
     <section id="certifications" style={{ background: '#111', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
       <div style={{ padding: '0 48px', marginBottom: 48, textAlign: 'right' }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>AWARDS & RECOGNITION</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 72, color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>ACHIEVEMENTS</h2>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>ACHIEVEMENTS</h2>
         <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
       </div>
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px' }}>
@@ -50,8 +50,9 @@ export default function Certifications() {
       </div>
       <style>{`
         @media (max-width: 767px) {
-          #certifications > div { padding: 0 20px !important; }
-          .cert-card { grid-template-columns: 1fr !important; }
+          #certifications > div:first-child { padding: 0 20px !important; }
+          #certifications > div:last-child { padding: 0 20px !important; }
+          .cert-card { grid-template-columns: 1fr !important; gap: 20px !important; }
           .cert-img { order: -1; }
         }
       `}</style>
