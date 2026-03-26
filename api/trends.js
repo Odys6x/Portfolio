@@ -1,18 +1,16 @@
+import { createClient } from 'redis'
+
 async function kvGet() {
-  if (!process.env.KV_REST_API_URL) return []
+  if (!process.env.REDIS_URL) return []
+  const client = createClient({ url: process.env.REDIS_URL })
+  await client.connect()
   try {
-    const res = await fetch(process.env.KV_REST_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(['GET', 'ai_trends']),
-    })
-    const data = await res.json()
-    return data.result ? JSON.parse(data.result) : []
+    const val = await client.get('ai_trends')
+    return val ? JSON.parse(val) : []
   } catch {
     return []
+  } finally {
+    await client.disconnect()
   }
 }
 
