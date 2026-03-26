@@ -40,3 +40,18 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   min-height: 100vh;
 }
+
+.trends-panels {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  flex: 1;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .trends-panels {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+}
