@@ -137,14 +137,13 @@ function ChatPanel() {
   return (
     <div style={{
       display: 'flex', flexDirection: 'column',
-      height: '100%', padding: '0',
-      boxSizing: 'border-box',
+      padding: '0', boxSizing: 'border-box',
     }}>
 
       {/* Messages area */}
       <div ref={scrollContainerRef} style={{
-        flex: 1, overflowY: 'auto', minHeight: 0,
-        padding: '4px 0',
+        maxHeight: 160, overflowY: 'auto',
+        padding: '12px 0 4px',
         scrollbarWidth: 'thin',
         scrollbarColor: 'var(--border) transparent',
       }}>
@@ -175,7 +174,7 @@ function ChatPanel() {
         {showStarters && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            style={{ flexShrink: 0, padding: '8px 0 4px' }}
+            style={{ flexShrink: 0, padding: '100px 0 4px' }}
           >
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.3em', color: 'var(--text-faint)', marginBottom: 8, textTransform: 'uppercase' }}>TRY ASKING</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -333,13 +332,13 @@ export default function About() {
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-dim)', textTransform: 'uppercase' }}>AI-POWERED Q&amp;A</p>
           </div>
           <div className="about-chat-container" style={{ maxWidth: 860, margin: '0 auto', border: '1px solid var(--border)', background: 'var(--surface)' }}>
-            <div style={{ borderBottom: '1px solid var(--border)', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 14, color: 'var(--accent)', letterSpacing: '0.1em' }}>ASK OWEN</span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, color: 'var(--text-faint)', letterSpacing: '0.25em', textTransform: 'uppercase' }}>· AI-POWERED Q&A</span>
+            <div style={{ borderBottom: '1px solid var(--border)', padding: '12px 20px', display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color: 'var(--accent)', letterSpacing: '0.08em' }}>ASK OWEN</span>
+              <span className="chat-header-sub" style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>· AI-POWERED Q&A</span>
               <div style={{ flex: 1 }} />
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, color: 'var(--text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>ISSUE 01</span>
+              <span className="chat-header-issue" style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>ISSUE 01</span>
             </div>
-            <div style={{ height: 420, padding: '0 20px 20px' }}>
+            <div style={{ padding: '0 20px 20px' }}>
               <ChatPanel />
             </div>
           </div>
@@ -348,6 +347,9 @@ export default function About() {
 
       <style>{`
         textarea::placeholder { color: var(--text-dim); }
+        @media (max-width: 767px) {
+          .chat-header-sub, .chat-header-issue { display: none !important; }
+        }
         textarea::-webkit-scrollbar { display: none; }
         @media (max-width: 767px) {
           .about-feature-grid { grid-template-columns: 1fr !important; padding: 0 20px !important; }
@@ -358,7 +360,7 @@ export default function About() {
           .about-feature-grid > *:last-child { padding-left: 0 !important; border-left: none !important; padding-top: 32px !important; }
           #about > div:first-child { padding: 0 20px 0 !important; }
           .about-chat-container { max-width: 100% !important; }
-          .about-chat-container > div { height: 480px !important; }
+          .about-chat-container > div { height: auto !important; }
           #about > div:last-child { padding: 0 20px !important; margin-top: 48px !important; }
         }
       `}</style>

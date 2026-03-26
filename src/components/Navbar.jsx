@@ -25,17 +25,29 @@ function MoonIcon() {
   )
 }
 
-function Navbar() {
+function Navbar({ view, navigate }) {
   const { theme, toggleTheme } = useTheme()
 
   const links = [
     { label: 'About', href: 'about' },
     { label: 'Projects', href: 'projects' },
     { label: 'Contact', href: 'contact' },
+    { label: 'Tech', href: 'tech' },
   ]
 
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  function handleClick(href) {
+    if (href === 'tech') {
+      navigate('tech')
+    } else if (view === 'portfolio') {
+      document.getElementById(href)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate(href)
+    }
+  }
+
+  function getColor(href) {
+    const isActive = href === 'tech' ? view === 'tech' : view === 'portfolio'
+    return isActive && href === 'tech' ? 'var(--accent)' : 'var(--text-muted)'
   }
 
   return (
@@ -57,10 +69,10 @@ function Navbar() {
           {links.map((link) => (
             <li key={link.label}>
               <button
-                onClick={() => scrollTo(link.href)}
-                style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}
+                onClick={() => handleClick(link.href)}
+                style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: getColor(link.href), background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}
                 onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                onMouseLeave={e => e.currentTarget.style.color = getColor(link.href)}
               >
                 {link.label}
               </button>
@@ -103,8 +115,8 @@ function Navbar() {
         {links.map((link) => (
           <button
             key={link.label}
-            onClick={() => scrollTo(link.href)}
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}
+            onClick={() => handleClick(link.href)}
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: getColor(link.href), background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}
           >
             {link.label}
           </button>
