@@ -7,93 +7,131 @@ const TAG_COLORS = {
   AI: '#60a5fa',
   Tech: '#4ade80',
 }
-
 const TAGS = ['All', 'LLM', 'ML', 'AI', 'Tech']
 
 function timeAgo(unix) {
   const diff = Math.floor((Date.now() / 1000) - unix)
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
-  return `${Math.floor(diff / 86400)}d ago`
+  if (diff < 3600) return `${Math.floor(diff / 60)}m`
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h`
+  return `${Math.floor(diff / 86400)}d`
+}
+
+function TagPill({ tag, size = 'sm' }) {
+  const color = TAG_COLORS[tag] || 'var(--text-faint)'
+  return (
+    <span style={{
+      fontFamily: "'Inter', sans-serif",
+      fontSize: size === 'lg' ? 10 : 9,
+      letterSpacing: '0.22em',
+      textTransform: 'uppercase',
+      fontWeight: 700,
+      color,
+      background: color + '18',
+      border: `1px solid ${color}35`,
+      padding: size === 'lg' ? '3px 10px' : '2px 8px',
+    }}>
+      {tag}
+    </span>
+  )
 }
 
 function FeaturedCard({ item }) {
   const [hovered, setHovered] = useState(false)
   const color = TAG_COLORS[item.tag] || 'var(--text-faint)'
+
   return (
     <motion.a
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      whileHover={{ y: -3 }}
+      whileHover={{ y: -4 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 14,
-        padding: '28px 32px',
-        border: '1px solid var(--border)',
+        gap: 16,
+        padding: '32px 36px',
+        border: `1px solid ${hovered ? color + '50' : 'var(--border)'}`,
         borderTop: `3px solid ${color}`,
         background: hovered ? 'var(--surface)' : 'var(--bg-alt)',
         textDecoration: 'none',
         cursor: 'pointer',
-        transition: 'background 0.2s',
+        position: 'relative',
+        overflow: 'hidden',
+        transition: 'background 0.25s, border-color 0.25s',
         marginBottom: 12,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-faint)', fontWeight: 600 }}>
-            #01
-          </span>
-          <span style={{
-            fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.25em',
-            textTransform: 'uppercase', color: color, fontWeight: 700,
-            border: `1px solid ${color}`, padding: '2px 8px',
-          }}>
-            {item.tag}
-          </span>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.2em', color: 'var(--text-faint)', textTransform: 'uppercase' }}>
-            TOP STORY
-          </span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)' }}>
-            {timeAgo(item.time)}
-          </span>
-          <motion.span
-            animate={{ x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.3 }}
-            transition={{ duration: 0.2 }}
-            style={{ color: 'var(--accent)', fontSize: 16 }}
-          >
-            →
-          </motion.span>
-        </div>
+      {/* Watermark rank */}
+      <span style={{
+        position: 'absolute', right: 28, top: 8,
+        fontFamily: "'Bebas Neue', sans-serif", fontSize: 110,
+        color: 'var(--border)', lineHeight: 1,
+        pointerEvents: 'none', userSelect: 'none',
+        transition: 'color 0.25s',
+      }}>
+        01
+      </span>
+
+      {/* Top row */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <TagPill tag={item.tag} size="lg" />
+        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.25em', color: 'var(--text-faint)', textTransform: 'uppercase' }}>
+          Top Story
+        </span>
       </div>
 
+      {/* Title */}
       <p style={{
         fontFamily: "'Inter', sans-serif",
-        fontSize: 'clamp(16px, 2vw, 20px)',
-        lineHeight: 1.4,
+        fontSize: 'clamp(17px, 2.2vw, 22px)',
+        lineHeight: 1.35,
         color: hovered ? 'var(--accent)' : 'var(--text)',
         fontWeight: 600,
+        maxWidth: '75%',
         transition: 'color 0.2s',
-        maxWidth: '80%',
       }}>
         {item.title}
       </p>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: 'var(--text-faint)', letterSpacing: '0.05em' }}>
-          {item.domain}
-        </span>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: 'var(--text-muted)', letterSpacing: '0.08em', fontWeight: 500 }}>
-          ↑ {item.score.toLocaleString()}
-        </span>
+      {/* AI summary */}
+      {item.summary && (
+        <p style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 12,
+          lineHeight: 1.6,
+          color: 'var(--text-faint)',
+          fontStyle: 'italic',
+          maxWidth: '65%',
+        }}>
+          {item.summary}
+        </p>
+      )}
+
+      {/* Bottom row */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: 'var(--text-faint)', letterSpacing: '0.05em' }}>
+            {item.domain}
+          </span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: 'var(--text-muted)', fontWeight: 500 }}>
+            ↑ {item.score.toLocaleString()}
+          </span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)' }}>
+            {timeAgo(item.time)} ago
+          </span>
+        </div>
+        <motion.span
+          animate={{ x: hovered ? 5 : 0, opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+          style={{ color: 'var(--accent)', fontSize: 18, fontWeight: 300 }}
+        >
+          →
+        </motion.span>
       </div>
     </motion.a>
   )
@@ -102,38 +140,38 @@ function FeaturedCard({ item }) {
 function TrendCard({ item, index }) {
   const [hovered, setHovered] = useState(false)
   const color = TAG_COLORS[item.tag] || 'var(--text-faint)'
+  const rank = String(index + 2).padStart(2, '0')
+
   return (
     <motion.a
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.04, duration: 0.4 }}
-      whileHover={{ y: -3 }}
+      transition={{ delay: index * 0.035, duration: 0.4 }}
+      whileHover={{ y: -4 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex',
         flexDirection: 'column',
         gap: 10,
-        padding: '18px 20px',
-        border: '1px solid var(--border)',
-        borderLeft: `3px solid ${color}`,
+        padding: '20px 22px',
+        border: `1px solid ${hovered ? color + '50' : 'var(--border)'}`,
         background: hovered ? 'var(--surface)' : 'var(--bg-alt)',
         textDecoration: 'none',
         cursor: 'pointer',
-        transition: 'background 0.2s',
+        transition: 'background 0.2s, border-color 0.2s',
       }}
     >
+      {/* Top row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.15em', color: 'var(--text-dim)', fontWeight: 600 }}>
-            #{String(index + 2).padStart(2, '0')}
+            #{rank}
           </span>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.25em', textTransform: 'uppercase', color, fontWeight: 600 }}>
-            {item.tag}
-          </span>
+          <TagPill tag={item.tag} />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)' }}>
@@ -149,6 +187,7 @@ function TrendCard({ item, index }) {
         </div>
       </div>
 
+      {/* Title */}
       <p style={{
         fontFamily: "'Inter', sans-serif",
         fontSize: 13,
@@ -156,16 +195,29 @@ function TrendCard({ item, index }) {
         color: hovered ? 'var(--accent)' : 'var(--text)',
         fontWeight: 500,
         transition: 'color 0.2s',
-        flexGrow: 1,
       }}>
         {item.title}
       </p>
 
+      {/* AI summary */}
+      {item.summary && (
+        <p style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 11,
+          lineHeight: 1.55,
+          color: 'var(--text-faint)',
+          fontStyle: 'italic',
+        }}>
+          {item.summary}
+        </p>
+      )}
+
+      {/* Bottom row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)', letterSpacing: '0.05em' }}>
+        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)', letterSpacing: '0.04em' }}>
           {item.domain}
         </span>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)', letterSpacing: '0.08em' }}>
+        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'var(--text-faint)' }}>
           ↑ {item.score.toLocaleString()}
         </span>
       </div>
@@ -176,18 +228,18 @@ function TrendCard({ item, index }) {
 function SkeletonCard({ featured = false }) {
   return (
     <div style={{
-      padding: featured ? '28px 32px' : '18px 20px',
+      padding: featured ? '32px 36px' : '20px 22px',
       border: '1px solid var(--border)',
-      borderLeft: featured ? undefined : '3px solid var(--border)',
       borderTop: featured ? '3px solid var(--border)' : undefined,
       background: 'var(--bg-alt)',
       display: 'flex', flexDirection: 'column', gap: 10,
       marginBottom: featured ? 12 : 0,
     }}>
-      <div style={{ width: 80, height: 10, background: 'var(--surface)', borderRadius: 2 }} />
-      <div style={{ width: '85%', height: featured ? 20 : 13, background: 'var(--surface)', borderRadius: 2 }} />
-      {featured && <div style={{ width: '60%', height: 20, background: 'var(--surface)', borderRadius: 2 }} />}
-      <div style={{ width: '40%', height: 10, background: 'var(--surface)', borderRadius: 2, marginTop: 4 }} />
+      <div style={{ width: 52, height: 18, background: 'var(--surface)', borderRadius: 2 }} />
+      <div style={{ width: '80%', height: featured ? 22 : 13, background: 'var(--surface)', borderRadius: 2 }} />
+      {featured && <div style={{ width: '55%', height: 22, background: 'var(--surface)', borderRadius: 2 }} />}
+      <div style={{ width: '65%', height: 11, background: 'var(--surface)', borderRadius: 2 }} />
+      <div style={{ width: '35%', height: 10, background: 'var(--surface)', borderRadius: 2, marginTop: 4 }} />
     </div>
   )
 }
@@ -216,7 +268,7 @@ export default function Trends() {
     <section style={{ padding: '48px 48px 80px', maxWidth: 1200, margin: '0 auto' }}>
 
       {/* Header */}
-      <div style={{ marginBottom: 32 }}>
+      <div style={{ marginBottom: 28 }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase' }}>
           ISSUE 05 · TECH PULSE
         </p>
@@ -225,8 +277,8 @@ export default function Trends() {
             AI & TECH TODAY
           </h2>
           {!loading && (
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-faint)', textTransform: 'uppercase', paddingBottom: 8 }}>
-              {trends.length} stories · Updated daily 9 AM SGT
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.18em', color: 'var(--text-faint)', textTransform: 'uppercase', paddingBottom: 10 }}>
+              {trends.length} stories · 9 AM SGT daily
             </span>
           )}
         </div>
@@ -236,22 +288,29 @@ export default function Trends() {
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {TAGS.map(tag => {
             const active = activeTag === tag
+            const color = TAG_COLORS[tag]
             const count = tagCounts[tag] || 0
             return (
-              <button
+              <motion.button
                 key={tag}
                 onClick={() => setActiveTag(tag)}
+                whileTap={{ scale: 0.96 }}
                 style={{
-                  fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em',
-                  textTransform: 'uppercase', cursor: 'pointer', padding: '5px 12px',
-                  border: `1px solid ${active ? (TAG_COLORS[tag] || 'var(--accent)') : 'var(--border)'}`,
-                  background: active ? 'var(--surface)' : 'none',
-                  color: active ? (TAG_COLORS[tag] || 'var(--accent)') : 'var(--text-faint)',
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: 10,
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  padding: '5px 14px',
+                  border: `1px solid ${active ? (color || 'var(--accent)') : 'var(--border)'}`,
+                  background: active ? (color ? color + '18' : 'var(--surface)') : 'none',
+                  color: active ? (color || 'var(--accent)') : 'var(--text-faint)',
                   transition: 'all 0.2s',
+                  fontWeight: active ? 600 : 400,
                 }}
               >
-                {tag} {count > 0 && <span style={{ opacity: 0.6 }}>({count})</span>}
-              </button>
+                {tag}{count > 0 ? ` (${count})` : ''}
+              </motion.button>
             )
           })}
         </div>
@@ -271,11 +330,17 @@ export default function Trends() {
         </>
       ) : filtered.length === 0 ? (
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: 'var(--text-faint)', letterSpacing: '0.1em' }}>
-          No stories yet for this category.
+          No stories for this category yet.
         </p>
       ) : (
         <AnimatePresence mode="wait">
-          <motion.div key={activeTag} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+          <motion.div
+            key={activeTag}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
             {featured && <FeaturedCard item={featured} />}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
               {rest.map((item, i) => <TrendCard key={item.id} item={item} index={i} />)}

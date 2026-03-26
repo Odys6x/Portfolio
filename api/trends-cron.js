@@ -1,3 +1,5 @@
+import { createClient } from 'redis'
+
 const HN_TOP = 'https://hacker-news.firebaseio.com/v0/topstories.json'
 const HN_ITEM = (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
 const MAX_STORED = 50
@@ -5,29 +7,73 @@ const FETCH_COUNT = 80
 
 const KEYWORD_RE = /\b(ai|llm|gpt|claude|gemini|openai|anthropic|deepseek|mistral|llama|copilot|language model|neural|machine learning|deep learning|transformer|embedding|fine.tun|diffusion|generative|artificial intelligence|pytorch|tensorflow|computer vision|nlp|natural language|robotics|autonomous|rust|golang|typescript|webassembly|wasm|kubernetes|docker|linux|open source|postgres|serverless|programming|arxiv|benchmark|hugging face|reinforcement learning|multimodal)\b/i
 
-function getTag(title) {
-  const t = title.toLowerCase()
-  if (/llm|gpt|claude|gemini|chatgpt|openai|anthropic|deepseek|mistral|llama|language model|copilot/.test(t)) return 'LLM'
-  if (/machine learning|deep learning|neural|pytorch|tensorflow|computer vision|nlp|fine.tun|embedding|reinforcement/.test(t)) return 'ML'
-  if (/ai|artificial intelligence|generative|diffusion|multimodal|robotics|autonomous/.test(t)) return 'AI'
-  return 'Tech'
-}
-
 function getDomain(url) {
   try { return new URL(url).hostname.replace('www.', '') }
   catch { return 'news.ycombinator.com' }
 }
 
-import { createClient } from 'redis'
+// ── Groq: score relevance, fix tags, add summaries ──
+async function enrichWithGroq(items) {
+  if (!process.env.GROQ_API_KEY || items.length === 0) return items
 
+  const storyList = items.map((item, i) => `${i}. "${item.title}"`).join('\n')
+
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      max_tokens: 1200,
+      temperature: 0.1,
+      response_format: { type: 'json_object' },
+      messages: [{
+        role: 'user',
+        content: `You are a tech content curator for AI/ML professionals. Evaluate these HackerNews story titles for relevance.
+
+Return ONLY this JSON shape:
+{"results": [{"index": N, "score": N, "tag": "LLM|ML|AI|Tech", "summary": "one sentence under 15 words"}]}
+
+Rules:
+- score 1–10 (only include stories with score >= 6)
+- LLM = language models, chatbots, GPT, Claude, Gemini, Copilot
+- ML = machine learning, neural networks, training, datasets, PyTorch
+- AI = general AI, robotics, computer vision, autonomous systems
+- Tech = other interesting tech (Rust, Linux, open source tools, etc.)
+- summary: plain English, no hype, factual
+- Skip low-quality/clickbait titles
+
+Stories:
+${storyList}`,
+      }],
+    }),
+  })
+
+  const data = await res.json()
+  const content = data.choices?.[0]?.message?.content
+  if (!content) return items
+
+  const parsed = JSON.parse(content)
+  const results = parsed.results || []
+
+  return results
+    .sort((a, b) => b.score - a.score)
+    .map(ev => ({
+      ...items[ev.index],
+      tag: ev.tag,
+      summary: ev.summary,
+      aiScore: ev.score,
+    }))
+}
+
+// ── Redis helpers ──
 async function withRedis(fn) {
   const client = createClient({ url: process.env.REDIS_URL })
   await client.connect()
-  try {
-    return await fn(client)
-  } finally {
-    await client.disconnect()
-  }
+  try { return await fn(client) }
+  finally { await client.disconnect() }
 }
 
 async function kvGet() {
@@ -37,9 +83,7 @@ async function kvGet() {
       const val = await client.get('ai_trends')
       return val ? JSON.parse(val) : []
     })
-  } catch {
-    return []
-  }
+  } catch { return [] }
 }
 
 async function kvSet(trends) {
@@ -62,8 +106,8 @@ export default async function handler(req, res) {
       ids.map(id => fetch(HN_ITEM(id)).then(r => r.json()).catch(() => null))
     )
 
-    // 3. Filter: must have title + url + match keywords + score > 30
-    const filtered = items
+    // 3. Keyword pre-filter (reduces what Groq needs to evaluate)
+    const preFiltered = items
       .filter(item => item && item.title && item.url && item.score > 30 && KEYWORD_RE.test(item.title))
       .map(item => ({
         id: item.id,
@@ -72,13 +116,15 @@ export default async function handler(req, res) {
         domain: getDomain(item.url),
         score: item.score,
         time: item.time,
-        tag: getTag(item.title),
       }))
 
-    // 4. Merge with existing, dedup by id, cap at MAX_STORED
+    // 4. Groq pass: score, retag, summarise
+    const enriched = await enrichWithGroq(preFiltered)
+
+    // 5. Merge with existing, dedup, cap at 50
     const existing = await kvGet()
     const existingIds = new Set(existing.map(t => t.id))
-    const newItems = filtered.filter(t => !existingIds.has(t.id))
+    const newItems = enriched.filter(t => !existingIds.has(t.id))
 
     const merged = [...newItems, ...existing]
       .sort((a, b) => b.time - a.time)
