@@ -50,7 +50,7 @@ function Navbar() {
         <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, letterSpacing: '0.12em', color: 'var(--accent)', fontWeight: 600 }}>
           オウェン・ウォン
         </div>
-        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.3em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.3em', color: 'var(--text-muted)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
           AI Engineer · Developer · Singapore
         </div>
         <ul className="flex items-center gap-8">

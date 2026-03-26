@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 
-const VIDEO_IDS = ['ye4jAQ0uxcQ', '86BOrA1Nn5o', 'SuKrrjnHfRU']
+const VIDEO_IDS = ['SuKrrjnHfRU','ye4jAQ0uxcQ', '86BOrA1Nn5o']
 
 function MusicPlayer({ autoplay = false }) {
   const [playing, setPlaying] = useState(false)

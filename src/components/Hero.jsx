@@ -36,11 +36,11 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.6 }}
           style={{ display: 'flex', alignItems: 'center', gap: 12 }}
         >
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>VOL.01</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, letterSpacing: '0.25em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>VOL.01</span>
           <span style={{ width: 16, height: 1, background: 'var(--border)', display: 'inline-block' }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>2026</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, letterSpacing: '0.25em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>2026</span>
           <span style={{ width: 16, height: 1, background: 'var(--border)', display: 'inline-block' }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>SINGAPORE</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, letterSpacing: '0.25em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>SINGAPORE</span>
         </motion.div>
 
         {/* Main name */}
@@ -91,7 +91,7 @@ export default function Hero() {
         >
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 28 }}>
             {['Python', 'LangGraph', 'RAG', 'AWS', 'React'].map(tag => (
-              <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.15em', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '4px 12px', textTransform: 'uppercase' }}>
+              <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.12em', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '5px 12px', textTransform: 'uppercase' }}>
                 {tag}
               </span>
             ))}
@@ -105,8 +105,8 @@ export default function Hero() {
               border: 'none',
               color: '#fff',
               fontFamily: "'Inter', sans-serif",
-              fontSize: 10,
-              letterSpacing: '0.28em',
+              fontSize: 12,
+              letterSpacing: '0.22em',
               padding: '11px 28px',
               cursor: 'pointer',
               textTransform: 'uppercase',
@@ -145,7 +145,7 @@ export default function Hero() {
 
         {/* Caption — pinned to bottom matching left column's 48px padding */}
         <div style={{ padding: '12px 40px 48px', textAlign: 'right' }}>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.28em', color: 'var(--text-muted)', textTransform: 'uppercase', lineHeight: 2 }}>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.2em', color: 'var(--text-muted)', textTransform: 'uppercase', lineHeight: 2 }}>
             GENAI DEVELOPER @ SP GROUP<br />
             SINGAPORE INSTITUTE OF TECHNOLOGY
           </p>

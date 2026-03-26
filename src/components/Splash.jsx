@@ -9,8 +9,8 @@ export default function Splash({ onEnter }) {
   const bg = isLight ? '#F5F0E8' : '#0D0D0D'
   const text = isLight ? '#1a1a1a' : '#fff'
   const accent = isLight ? '#C01010' : '#E02020'
-  const muted = isLight ? '#888' : '#555'
-  const dim = isLight ? '#C8BFB5' : '#2a2a2a'
+  const muted = isLight ? '#666' : '#888'
+  const dim = isLight ? '#aaa' : '#666'
 
   return (
     <motion.div
