@@ -3,11 +3,21 @@ import { motion } from 'framer-motion'
 
 const VIDEO_IDS = ['ye4jAQ0uxcQ', '86BOrA1Nn5o', 'SuKrrjnHfRU']
 
-function MusicPlayer() {
+function MusicPlayer({ autoplay = false }) {
   const [playing, setPlaying] = useState(false)
   const [ready, setReady] = useState(false)
   const playerRef = useRef(null)
   const mountRef = useRef(null)
+  const autoplayedRef = useRef(false)
+
+  // Play once when user has entered and player is ready
+  useEffect(() => {
+    if (autoplay && ready && !autoplayedRef.current) {
+      autoplayedRef.current = true
+      playerRef.current.playVideo()
+      setPlaying(true)
+    }
+  }, [autoplay, ready])
 
   useEffect(() => {
     const initPlayer = () => {
@@ -57,8 +67,8 @@ function MusicPlayer() {
           width: 28,
           height: 28,
           borderRadius: '50%',
-          background: '#1a1a1a',
-          border: '1px solid #2a2a2a',
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
           cursor: ready ? 'pointer' : 'default',
           opacity: ready ? 1 : 0.4,
           display: 'flex',
@@ -67,17 +77,13 @@ function MusicPlayer() {
           padding: 0,
         }}
       >
-        {playing ? (
-          <motion.div
-            animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-            transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-            style={{ width: 8, height: 8, borderRadius: '50%', background: '#E02020', flexShrink: 0 }}
-          />
-        ) : (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#555">
-            <path d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-          </svg>
-        )}
+        <motion.svg
+          width="14" height="14" viewBox="0 0 24 24" fill="none"
+          animate={playing ? { scale: [1, 1.3, 1] } : { scale: 1 }}
+          transition={playing ? { repeat: Infinity, duration: 1.2, ease: 'easeInOut' } : {}}
+        >
+          <path d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" stroke={playing ? 'var(--accent)' : '#555'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        </motion.svg>
       </motion.button>
     </div>
   )

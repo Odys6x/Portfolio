@@ -16,7 +16,7 @@ function ProjectCard({ project, index }) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ delay: index * 0.08, duration: 0.5 }}
       className={isFeatured ? 'project-featured' : ''}
-      style={{ borderBottom: '1px solid #2a2a2a', paddingTop: 40, paddingBottom: 40 }}
+      style={{ borderBottom: '1px solid var(--border)', paddingTop: 40, paddingBottom: 40 }}
     >
       <div className="project-grid" style={{ display: 'grid', gridTemplateColumns: project.img ? '1fr 1fr' : '1fr', gap: 48, alignItems: 'start' }}>
         {project.img && (
@@ -33,21 +33,21 @@ function ProjectCard({ project, index }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
             {isFeatured && (
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.25em', color: '#E02020', textTransform: 'uppercase', fontWeight: 700, border: '1px solid #E02020', padding: '2px 8px' }}>FEATURED</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.25em', color: 'var(--accent)', textTransform: 'uppercase', fontWeight: 700, border: '1px solid var(--accent)', padding: '2px 8px' }}>FEATURED</span>
             )}
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.2em', color: '#777', textTransform: 'uppercase' }}>{project.badge}</span>
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.2em', color: '#333', textTransform: 'uppercase' }}>{project.jaTitle}</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.2em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>{project.badge}</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.2em', color: 'var(--text-dim)', textTransform: 'uppercase' }}>{project.jaTitle}</span>
           </div>
 
-          <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isFeatured ? 48 : 36, color: '#E02020', letterSpacing: '0.03em', lineHeight: 1, marginBottom: 12 }}>{project.title}</h3>
+          <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isFeatured ? 48 : 36, color: 'var(--accent)', letterSpacing: '0.03em', lineHeight: 1, marginBottom: 12 }}>{project.title}</h3>
 
-          <div style={{ width: 32, height: 1, background: '#E02020', marginBottom: 16 }} />
+          <div style={{ width: 32, height: 1, background: 'var(--accent)', marginBottom: 16 }} />
 
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#888', lineHeight: 1.75, marginBottom: 16 }}>{project.desc}</p>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.75, marginBottom: 16 }}>{project.desc}</p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {project.tags.map(tag => (
-              <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.15em', color: '#888', border: '1px solid #2a2a2a', padding: '3px 10px', textTransform: 'uppercase' }}>
+              <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.15em', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '3px 10px', textTransform: 'uppercase' }}>
                 {tag}
               </span>
             ))}
@@ -60,14 +60,14 @@ function ProjectCard({ project, index }) {
 
 export default function Projects() {
   return (
-    <section id="projects" style={{ background: '#0D0D0D', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
-      <div style={{ padding: '0 48px', marginBottom: 48 }}>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>PORTFOLIO</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>WHAT I'VE BUILT</h2>
-        <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
+    <section id="projects" style={{ background: 'var(--bg)', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
+      <div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48 }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase', position: 'relative', zIndex: 1 }}>ISSUE 03 · PORTFOLIO</p>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 1, position: 'relative', zIndex: 1 }}>WHAT I'VE BUILT</h2>
+        <div style={{ width: '100%', height: 1, background: 'var(--border)', marginTop: 16, position: 'relative', zIndex: 1 }} />
       </div>
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px' }}>
-        <div>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px' }}>
+        <div className="projects-list">
           {PROJECTS.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
@@ -76,13 +76,24 @@ export default function Projects() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}
+          style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 12 }}
         >
-          <div style={{ width: 24, height: 1, background: '#333' }} />
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.2em', color: '#777', textTransform: 'uppercase' }}>More projects on the way</p>
+          <div style={{ width: 24, height: 1, background: 'var(--text-dim)' }} />
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.2em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>More projects on the way</p>
         </motion.div>
       </div>
       <style>{`
+        .projects-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0 80px;
+        }
+        .projects-list > * {
+          border-bottom: 1px solid var(--border);
+        }
+        @media (max-width: 900px) {
+          .projects-list { grid-template-columns: 1fr !important; }
+        }
         @media (max-width: 767px) {
           #projects > div:first-child { padding: 0 20px !important; }
           #projects > div:last-child { padding: 0 20px !important; }

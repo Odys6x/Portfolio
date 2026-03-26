@@ -10,7 +10,7 @@ export default function Hero() {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        background: '#0D0D0D',
+        background: 'var(--bg)',
         display: 'flex',
         alignItems: 'stretch',
         overflow: 'hidden',
@@ -22,8 +22,9 @@ export default function Hero() {
           flex: '0 0 55%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '80px 48px 48px',
+          justifyContent: 'center',
+          gap: 40,
+          padding: '60px 48px 48px',
           position: 'relative',
           zIndex: 2,
         }}
@@ -35,11 +36,11 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.6 }}
           style={{ display: 'flex', alignItems: 'center', gap: 12 }}
         >
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>VOL.01</span>
-          <span style={{ width: 16, height: 1, background: '#2a2a2a', display: 'inline-block' }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>2026</span>
-          <span style={{ width: 16, height: 1, background: '#2a2a2a', display: 'inline-block' }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: '#777', textTransform: 'uppercase' }}>SINGAPORE</span>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>VOL.01</span>
+          <span style={{ width: 16, height: 1, background: 'var(--border)', display: 'inline-block' }} />
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>2026</span>
+          <span style={{ width: 16, height: 1, background: 'var(--border)', display: 'inline-block' }} />
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.32em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>SINGAPORE</span>
         </motion.div>
 
         {/* Main name */}
@@ -52,7 +53,7 @@ export default function Hero() {
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: 'clamp(80px, 10vw, 148px)',
               lineHeight: 0.88,
-              color: '#E02020',
+              color: 'var(--accent)',
               letterSpacing: '0.02em',
               margin: 0,
             }}
@@ -66,17 +67,17 @@ export default function Hero() {
             transition={{ delay: 0.4, duration: 0.6 }}
             style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 14 }}
           >
-            <span style={{ width: 32, height: 2, background: '#E02020', display: 'inline-block', flexShrink: 0 }} />
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.28em', color: '#888', textTransform: 'uppercase' }}>AI Engineer</span>
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.28em', color: '#777', textTransform: 'uppercase' }}>/</span>
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.28em', color: '#888', textTransform: 'uppercase' }}>Developer</span>
+            <span style={{ width: 32, height: 2, background: 'var(--accent)', display: 'inline-block', flexShrink: 0 }} />
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.28em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>AI Engineer</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.28em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>/</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.28em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Developer</span>
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55, duration: 0.6 }}
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#999', lineHeight: 1.8, marginTop: 20, maxWidth: 380 }}
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'var(--text-muted)', lineHeight: 1.8, marginTop: 20, maxWidth: 420 }}
           >
             I build AI systems that actually do things — not just demos. From cutting incident response times to winning hackathons, I turn research into real impact.
           </motion.p>
@@ -90,7 +91,7 @@ export default function Hero() {
         >
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 28 }}>
             {['Python', 'LangGraph', 'RAG', 'AWS', 'React'].map(tag => (
-              <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.15em', color: '#888', border: '1px solid #2a2a2a', padding: '4px 12px', textTransform: 'uppercase' }}>
+              <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.15em', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '4px 12px', textTransform: 'uppercase' }}>
                 {tag}
               </span>
             ))}
@@ -100,9 +101,9 @@ export default function Hero() {
             whileTap={{ scale: 0.97 }}
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             style={{
-              background: '#E02020',
+              background: 'var(--accent)',
               border: 'none',
-              color: 'white',
+              color: '#fff',
               fontFamily: "'Inter', sans-serif",
               fontSize: 10,
               letterSpacing: '0.28em',
@@ -124,17 +125,17 @@ export default function Hero() {
         transition={{ delay: 0.15, duration: 0.9 }}
         style={{ flex: '0 0 45%', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
       >
-        <div style={{ position: 'absolute', left: 0, top: '10%', bottom: '10%', width: 1, background: '#2a2a2a', zIndex: 3 }} />
+        <div style={{ position: 'absolute', left: 0, top: '10%', bottom: '10%', width: 1, background: 'var(--border)', zIndex: 3 }} />
 
         {/* Photo — inset with padding, cover crop */}
-        <div style={{ padding: '16px 40px 0', flex: 1 }}>
+        <div style={{ padding: '60px 48px 0', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img
             src={PHOTO}
             alt="Owen Wong"
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              width: '80%',
+              height: 'auto',
+              objectFit: 'contain',
               objectPosition: 'center 30%',
               display: 'block',
               filter: 'contrast(1.05) saturate(0.7) brightness(0.85)',
@@ -144,7 +145,7 @@ export default function Hero() {
 
         {/* Caption — pinned to bottom matching left column's 48px padding */}
         <div style={{ padding: '12px 40px 48px', textAlign: 'right' }}>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.28em', color: '#888', textTransform: 'uppercase', lineHeight: 2 }}>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.28em', color: 'var(--text-muted)', textTransform: 'uppercase', lineHeight: 2 }}>
             GENAI DEVELOPER @ SP GROUP<br />
             SINGAPORE INSTITUTE OF TECHNOLOGY
           </p>

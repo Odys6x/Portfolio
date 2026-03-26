@@ -71,47 +71,47 @@ function CompanyCard({ group, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ delay: index * 0.07, duration: 0.5 }}
-      style={{ borderBottom: '1px solid #2a2a2a', paddingTop: 48, paddingBottom: 48 }}
+      style={{ borderBottom: '1px solid var(--border)', paddingTop: 48, paddingBottom: 48 }}
     >
       {/* Top bar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.28em', color: '#333', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.28em', color: 'var(--text-dim)', textTransform: 'uppercase' }}>
             {String(index + 1).padStart(2, '0')}
           </span>
           {hasCurrent && (
             <>
-              <span style={{ width: 1, height: 10, background: '#E02020', display: 'inline-block' }} />
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.28em', color: '#E02020', textTransform: 'uppercase', fontWeight: 600 }}>CURRENT</span>
+              <span style={{ width: 1, height: 10, background: 'var(--accent)', display: 'inline-block' }} />
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.28em', color: 'var(--accent)', textTransform: 'uppercase', fontWeight: 600 }}>CURRENT</span>
             </>
           )}
         </div>
       </div>
 
       {/* Company headline */}
-      <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(28px, 6vw, 68px)', color: hasCurrent ? '#E02020' : '#fff', letterSpacing: '0.02em', lineHeight: 0.9, marginBottom: 28 }}>
+      <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(28px, 6vw, 68px)', color: hasCurrent ? 'var(--accent)' : 'var(--text)', letterSpacing: '0.02em', lineHeight: 0.9, marginBottom: 28 }}>
         {group.company}
       </h3>
 
       {/* Roles */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {group.roles.map((r, i) => (
-          <div key={i} className="exp-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 40, alignItems: 'start', paddingTop: i > 0 ? 24 : 0, borderTop: i > 0 ? '1px solid #1e1e1e' : 'none' }}>
+          <div key={i} className="exp-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 40, alignItems: 'start', paddingTop: i > 0 ? 24 : 0, borderTop: i > 0 ? '1px solid var(--surface)' : 'none' }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
-                <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(18px, 3vw, 28px)', color: '#bbb', letterSpacing: '0.06em', lineHeight: 1 }}>{r.role}</p>
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(18px, 3vw, 28px)', color: 'var(--text)', letterSpacing: '0.06em', lineHeight: 1 }}>{r.role}</p>
               </div>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: '#555', textTransform: 'uppercase', marginBottom: 12 }}>{r.period} · {r.type}</p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-faint)', textTransform: 'uppercase', marginBottom: 12 }}>{r.period} · {r.type}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {r.tags.map(tag => (
-                  <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.15em', color: '#555', border: '1px solid #2a2a2a', padding: '3px 8px', textTransform: 'uppercase' }}>
+                  <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, letterSpacing: '0.15em', color: 'var(--text-faint)', border: '1px solid var(--border)', padding: '3px 8px', textTransform: 'uppercase' }}>
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
-            <div style={{ borderLeft: '1px solid #2a2a2a', paddingLeft: 32 }}>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#888', lineHeight: 1.8 }}>{r.desc}</p>
+            <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: 32 }}>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.8 }}>{r.desc}</p>
             </div>
           </div>
         ))}
@@ -122,11 +122,11 @@ function CompanyCard({ group, index }) {
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ background: '#111', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
-      <div style={{ padding: '0 48px', marginBottom: 48, textAlign: 'right' }}>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>CAREER</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>WHERE I'VE WORKED</h2>
-        <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
+    <section id="experience" style={{ background: 'var(--bg)', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
+      <div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48, textAlign: 'right' }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase', position: 'relative', zIndex: 1 }}>ISSUE 02 · CAREER</p>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 1, position: 'relative', zIndex: 1 }}>WHERE I'VE WORKED</h2>
+        <div style={{ width: '100%', height: 1, background: 'var(--border)', marginTop: 16, position: 'relative', zIndex: 1 }} />
       </div>
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 48px' }}>
         {COMPANIES.map((group, i) => (

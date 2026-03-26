@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 const LINKS = [
   { id:'github',   label:'GitHub',   sub:'github.com/Odys6x',      href:'https://github.com/Odys6x' },
-  { id:'linkedin', label:'LinkedIn', sub:'linkedin.com/in/owenwong', href:'https://linkedin.com/in/owenwong' },
+  { id:'linkedin', label:'LinkedIn', sub:'linkedin.com/in/wongchunowen', href:'https://www.linkedin.com/in/wongchunowen/' },
   { id:'email',    label:'Email',    sub:'phoinexw@gmail.com',       href:'mailto:phoinexw@gmail.com' },
 ]
 
@@ -36,22 +36,22 @@ function LinkCard({ link, index }) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       whileHover={{ y: -4 }}
-      style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '36px 24px', border: '1px solid #2a2a2a', cursor: 'pointer', flex: 1 }}
+      style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '36px 24px', border: '1px solid var(--border)', cursor: 'pointer', flex: 1 }}
     >
-      <div style={{ color: '#E02020' }}>{ICONS[link.id]}</div>
-      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#fff', letterSpacing: '0.08em', lineHeight: 1 }}>{link.label}</p>
-      <p className="contact-sub" style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#555', letterSpacing: '0.06em' }}>{link.sub}</p>
+      <div style={{ color: 'var(--accent)' }}>{ICONS[link.id]}</div>
+      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: 'var(--text)', letterSpacing: '0.08em', lineHeight: 1 }}>{link.label}</p>
+      <p className="contact-sub" style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: 'var(--text-faint)', letterSpacing: '0.06em' }}>{link.sub}</p>
     </motion.a>
   )
 }
 
 export default function Contact() {
   return (
-    <section id="contact" style={{ background: '#0D0D0D', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 100 }}>
-      <div style={{ padding: '0 48px', marginBottom: 48, textAlign: 'center' }}>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: '#777', marginBottom: 8, textTransform: 'uppercase' }}>GET IN TOUCH</p>
-        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: '#E02020', letterSpacing: '0.02em', lineHeight: 1 }}>LET'S CONNECT</h2>
-        <div style={{ width: '100%', height: 1, background: '#2a2a2a', marginTop: 16 }} />
+    <section id="contact" style={{ background: 'var(--bg)', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 100 }}>
+      <div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48, textAlign: 'center' }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase', position: 'relative', zIndex: 1 }}>ISSUE 05 · CONTACT</p>
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 1, position: 'relative', zIndex: 1 }}>LET'S CONNECT</h2>
+        <div style={{ width: '100%', height: 1, background: 'var(--border)', marginTop: 16, position: 'relative', zIndex: 1 }} />
       </div>
       <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px' }}>
 
@@ -59,7 +59,7 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#666', lineHeight: 1.8, marginBottom: 48, textAlign: 'center' }}
+          style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: 48, textAlign: 'center' }}
         >
           Whether it's a job opportunity, a collaboration, or just a chat — my inbox is always open.
         </motion.p>
@@ -77,8 +77,8 @@ export default function Contact() {
           transition={{ delay: 0.5 }}
           style={{ marginTop: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: '#333', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2026</p>
-          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 16, color: '#333', letterSpacing: '0.1em' }}>VOL.01</p>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: '0.25em', color: 'var(--text-dim)', textTransform: 'uppercase' }}>OWEN WONG · SINGAPORE · 2026</p>
+          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 16, color: 'var(--text-dim)', letterSpacing: '0.1em' }}>VOL.01</p>
         </motion.div>
       </div>
       <style>{`
