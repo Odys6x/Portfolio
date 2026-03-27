@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 
 const PHOTO = '/assets/Owen.jpg'
 
+
 export default function Hero() {
   return (
     <section

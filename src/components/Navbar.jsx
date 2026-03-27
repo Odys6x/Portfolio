@@ -32,22 +32,18 @@ function Navbar({ view, navigate }) {
     { label: 'About', href: 'about' },
     { label: 'Projects', href: 'projects' },
     { label: 'Contact', href: 'contact' },
-    { label: 'Tech', href: 'tech' },
   ]
 
   function handleClick(href) {
-    if (href === 'tech') {
-      navigate('tech')
-    } else if (view === 'portfolio') {
+    if (view === 'portfolio') {
       document.getElementById(href)?.scrollIntoView({ behavior: 'smooth' })
     } else {
       navigate(href)
     }
   }
 
-  function getColor(href) {
-    const isActive = href === 'tech' ? view === 'tech' : view === 'portfolio'
-    return isActive && href === 'tech' ? 'var(--accent)' : 'var(--text-muted)'
+  function getColor() {
+    return 'var(--text-muted)'
   }
 
   return (

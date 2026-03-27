@@ -36,7 +36,7 @@ function CertCard({ cert, index }) {
 export default function Certifications() {
   return (
     <section id="certifications" style={{ background: 'var(--bg-alt)', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 80 }}>
-      <div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48, textAlign: 'right' }}>
+<div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48, textAlign: 'right' }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase', position: 'relative', zIndex: 1 }}>ISSUE 04 · RECOGNITION</p>
         <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 1, position: 'relative', zIndex: 1 }}>ACHIEVEMENTS</h2>
         <div style={{ width: '100%', height: 1, background: 'var(--border)', marginTop: 16, position: 'relative', zIndex: 1 }} />

@@ -48,7 +48,7 @@ function LinkCard({ link, index }) {
 export default function Contact() {
   return (
     <section id="contact" style={{ background: 'var(--bg)', position: 'relative', zIndex: 1, paddingTop: 80, paddingBottom: 100 }}>
-      <div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48, textAlign: 'center' }}>
+<div style={{ position: 'relative', overflow: 'hidden', padding: '0 48px', marginBottom: 48, textAlign: 'center' }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, letterSpacing: '0.35em', color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase', position: 'relative', zIndex: 1 }}>ISSUE 05 · CONTACT</p>
         <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(40px, 8vw, 72px)', color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 1, position: 'relative', zIndex: 1 }}>LET'S CONNECT</h2>
         <div style={{ width: '100%', height: 1, background: 'var(--border)', marginTop: 16, position: 'relative', zIndex: 1 }} />
